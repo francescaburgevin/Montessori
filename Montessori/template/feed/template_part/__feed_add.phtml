@@ -18,13 +18,13 @@
     </div>
 
 <div>
-    <label for="content" class="add-feed-content"></label>
-    <textarea id="content" name="content" rows="5" cols="33">Description</textarea>
+    <label for="content" class="add-feed-content">Contenu :</label>
+    <textarea id="content" name="content" rows="5" cols="33"></textarea>
 </div>
 
 <div>
     <label for="add-feed-list-students" class="add-feed-list-students">Qui apparaîsse ? </label>
-    <select name="add-feed-list-students" multiple="multiple" tabindex="1">
+    <select name="add-feed-list-students[]" multiple="multiple" tabindex="1">
         <option value="ambiance">Tous</option>
             
         <?php 
@@ -36,7 +36,7 @@
 </div>
 
 <div>
-    <label for="publish-date" class="feed-add-publish-date">Publier?</label>
+    <label for="publish-date" class="feed-add-publish-date">Publier ?</label>
     <input type="checkbox" name="publish-date" id="publish-date">
 </div>
 

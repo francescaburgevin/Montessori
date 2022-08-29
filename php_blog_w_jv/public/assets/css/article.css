@@ -1,0 +1,61 @@
+.articles_table{
+    width: 80%;
+    text-align:center;
+    align-self:center;
+    background-color:beige;
+    margin-top:20px;
+}
+
+.article_display{
+    display:flex ; 
+    flex-direction: column ; 
+    margin-left: auto;
+    margin-right: auto;
+    background-color : beige ; 
+    width : 70%  ; 
+    text-align : left ; 
+    margin-top : 30px;
+    padding : 30px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.article_show_bottom_link{
+    text-decoration: none;
+    color : beige;
+
+}
+
+.category_article_show{
+    max-width : fit-content;
+    margin: 10px;
+    padding: 10px;
+    background-color : white;
+    color : green;
+}
+
+.article_display_image{
+    width:80%;
+}
+
+.mybtn{
+    background-color:green;
+    color:white;
+    width:100px;
+    border-radius:3px 3px;
+}
+
+#article-title{
+    max-width: 150px;
+}
+
+#article-butttons{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    row-gap:2px;
+    margin-top: 10px;
+}
+
+#article-list-btn{
+    
+}

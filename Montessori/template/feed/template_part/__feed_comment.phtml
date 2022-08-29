@@ -5,11 +5,20 @@
         <?php 
         //var_dump($allRelatedComments);
         foreach($allRelatedComments as $key => $comment): ?>
-           
             
-            <p class="comment"> <?= $comment->getContent() ?></p>
+            <div class="parent-comment-card">
+                <div>
+                    <p class="parent-comment"> <?= $comment->getCommentUser()->getFirstname() ?>: <?= $comment->getContent() ?></p>
+                </div>
+                
+                <div class="parent-comment-options">
+                    <label for="parent-comment-publish">Publier</label>
+                    <input type="checkbox" class="btn-edit-publish-comment" data-comment_id="<?= $comment->getId() ?>"/>
+                    <button class="parent-comment-delete" data-comment_id="<?= $comment->getId() ?>">Supprimer</button>
+                </div>
+            </div>
         
-            <div class="childComment">
+            <div class="related-comment">
                 
                 <?php if( $comment->hasChildren() ) : ?>
                 
@@ -18,7 +27,18 @@
                         <?php 
                         $relatedComment->displayChild($relatedComment->getId()); ?>
                         
-                        <p class="comment"> <?= $relatedComment->getContent() ?></p>
+                        <div class="child-comment-card">
+                            <div>
+                                <p class="child-comment"> <?= $comment->getCommentUser()->getFirstname() ?>: <?= $relatedComment->getContent() ?></p>
+                            </div>
+                            
+                            <div class="child-comment-options">
+                                <label for="child-comment-publish">Publier</label>
+                                <input type="checkbox" class="btn-edit-publish-comment" data-comment_id="<?= $relatedComment->getId() ?>"/>
+                                <button class="child-comment-delete" data-comment_id="<?= $relatedComment->getId() ?>">Supprimer</button>
+                            </div>
+                        </div>
+                        
                         
                     <?php endforeach; ?>
                 

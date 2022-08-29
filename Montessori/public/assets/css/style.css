@@ -31,12 +31,13 @@ header, main{
 body{
     margin:0;
     padding:0;
+    box-sizing: content-box;
+    width: 100%;
 }
 
 main{
     margin-right:auto;
     margin-left:auto;
-
 }
 
 .btn{
@@ -47,6 +48,12 @@ main{
     border-radius: 5px;
     background-color:transparent;
 }
+.btn-small{
+    padding: 0.5em;
+    font-weight: 700;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+}
 
 .btn:hover{
     padding: 1.2em;
@@ -55,6 +62,12 @@ main{
     color: white;
     /* ??? what does transition do*/
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+.btn-small:hover{
+    padding: 0.5em;
+    font-weight: 900;
+    background-color: var(--primary);
+    color: white;
 }
 
 .btn:active{
@@ -74,11 +87,12 @@ main a, a:visited{
 
 
 
-
+/* NAVIGATION BAR */
 .navigation{
     height:30%;
     display:flex;
     justify-content:space-between;
+       
 }
 
 .toggle-menu a, a:visited{
@@ -106,13 +120,14 @@ main a, a:visited{
     background-color:transparent;
     border:none;
     cursor:pointer;
+
 }
 
 .toggle-menu{
     display:flex;
     flex-direction:column;
     align-items: center;
-    position: absolute;
+    position: fixed;
     z-index:1;
     height: 100vh;
     text-align: center;
@@ -120,6 +135,7 @@ main a, a:visited{
     width: 106%;
     transition: all .8s ease-in-out;
     transform: translate(15%, -6%);
+    overflow-x: hidden;
 }
 
 
@@ -179,6 +195,8 @@ main a, a:visited{
 }
 
 
+/* LOGIN */
+
 .login-card{
    text-align:center;    
    margin-top: 2rem;
@@ -188,6 +206,10 @@ main a, a:visited{
     width: 150px;
     /*height: 180px;
     object-fit: cover;*/
+}
+
+.login-card p{
+    margin-bottom:0;
 }
 
 .form-input input{
@@ -207,13 +229,15 @@ main a, a:visited{
     margin: 2em;
 }
 
+.error-login-message{
+    color:var(--secondary);
+}
 
 /* CAROUSEL */
 
 
 #home-carousel{
     width:100%;
-   
 }
 
 .carousel-item{
@@ -261,7 +285,6 @@ main a, a:visited{
     height:50px;
     border:none;
     background-color:transparent;
-    
 }
 
 .carousel-next{
@@ -269,7 +292,6 @@ main a, a:visited{
     height:50px;
     border:none;
     background-color:transparent;
-    
 }
 
 .carousel-previous img, .carousel-next img{

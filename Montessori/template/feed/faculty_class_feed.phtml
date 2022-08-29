@@ -19,8 +19,9 @@
         <p> <?= $feed->getContent() ?></p>
         
           
-        <div>
-          <button class="btn-small btn-edit" data-id="<?= $feed->getId() ?>" name="feed_id"> Modifier </button>
+        <div class="feed-post-btn">
+          <button class="btn-small btn-edit" data-feed_id="<?= $feed->getId() ?>" > Modifier </button>
+          <button class="btn-small btn-delete" data-feed_id="<?= $feed->getId() ?>" > Supprimer </button>
         </div>
               
         <!-- loop through all the comments available -->
@@ -45,3 +46,4 @@
 
 
 <?php include_once dirname(__DIR__) . "/feed/template_part/__feed_edit.phtml"; ?>
+<?php include_once dirname(__DIR__) . "/feed/template_part/__feed_delete.phtml"; ?>

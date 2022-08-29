@@ -1,0 +1,30 @@
+<?php
+
+if(isset($_SESSION["login"])){
+$message = "Welcome, ". $_SESSION['username']. "!";
+}
+
+?>
+
+
+<h1>HOME PAGE</h1>
+
+<?php
+if(isset($_SESSION["login"]))
+      {
+          echo $message;
+      }
+      
+?>
+
+<div class="d-flex justify-content-center">
+    
+    <?php
+
+    // inject carrousel of pictures
+
+    include_once "__carrousel.phtml";
+
+    ?>
+
+</div>

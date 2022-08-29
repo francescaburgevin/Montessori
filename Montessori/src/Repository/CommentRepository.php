@@ -59,6 +59,20 @@ class CommentRepository extends AbstractRepository
     }
 
 
+        public function deleteComments(int $id)
+    {
+        $query = "DELETE FROM comment 
+                  WHERE fk_class_feed_id = :id; ";
+        $class = "Comment";
+        $params = 
+            [
+                ":id"=>$id
+            ];
+        
+        return ($this->executeQuery($query, $class, $params));
+    }
+
+
 }
 
 

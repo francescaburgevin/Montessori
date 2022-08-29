@@ -1,0 +1,34 @@
+<?php
+
+$categories = "";
+    foreach($params["categories"] as $key => $category )
+    {
+        $categories .= $category->getName() . " ";
+    }
+?>
+
+<section class="article_display">
+        <div>
+            <h3> <?php  echo utf8_encode($params["article"]->getTitle()) ?></h3>
+            <p> <italic> créé par <?php  echo $params["user"]->getFirstname(). " ". $params["user"]->getLastname()." le ".  $params["article"]->getPublishedDate() ?> </italic> </p>
+        </div>
+    
+        <div class="category_article_show">
+            <?php  
+                    echo utf8_encode($categories);
+            ?>
+        </div>
+
+        <div>
+            <p> <?php  echo utf8_encode($params["article"]->getContent()) ?></p>
+        </div>
+
+        <img class="article_display_image" src="<?php  echo ($params["article"]->getFile_path_image()) ?>"></img>
+        
+    
+</section>
+
+<div style="margin-top: 30px">
+    <a href="/Blog/public/?page=articles" class="article_show_bottom_link" >Revenir à la liste d'articles</a>
+</div>
+

@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__DIR__, 2) . "/src/Repository/CommentRepository.php";
+require_once dirname(__DIR__, 2) . "/src/Repository/UserRepository.php";
 
 class Comment {
     
@@ -245,6 +246,14 @@ class Comment {
         $allRelatedComments = $commentRepository->getById($childComment);
         //var_dump($allRelatedComments);
         include_once dirname(__DIR__,2).'/template/feed/template_part/__feed_comment.phtml';
+    }
+    
+    
+    public function getCommentUser()
+    {
+        $userRepository = new UserRepository;
+        $user = $userRepository->retrieve($this->fk_user_id);
+        return $user;
     }
    
 }

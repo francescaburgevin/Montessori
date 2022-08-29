@@ -65,9 +65,14 @@ const ROUTING = [
         "action" => "editFeed"
     ],
     
-    "xml-edit" => [
+    "feed_edit_publish" => [
         "controller" => "ClassFeedController",
-        "action" => "xmlEdit"
+        "action" => "editFeedPublish"
+    ],
+    
+    "xml_edit" => [
+        "controller" => "ClassFeedController",
+        "action" => "xmlRetrieve"
     ],
     
     "feed_delete" => [

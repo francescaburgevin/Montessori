@@ -13,9 +13,18 @@
         <span class="menu-bar"></span>
 
       <span class="toggle-menu">
-        <a href="/Montessori/?page=home">Accueil</a>
+
+
+      <?php
+        if($_GET['page']!='home')
+        {
+          echo "<a href='/Montessori/?page=home'>Accueil</a>";
+        }
+      ?>
   
       <?php
+        if( ($_GET['page']!='parent') && ($_GET['page']!='faculty') )
+        {
           if(isset($_SESSION["user_role"]))
           {
             if(($_SESSION["user_role"])=="parent")
@@ -27,6 +36,7 @@
               echo "<a href='/Montessori/?page=faculty'>Compte</a>";
             }
           }
+        }
         ?>
         
         <?php

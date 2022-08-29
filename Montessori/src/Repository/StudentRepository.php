@@ -73,5 +73,20 @@ class StudentRepository extends AbstractRepository
         return ($query->fetchAll());
     }
     
+    
+         public function deleteStudents(int $id)
+    {
+        $query = "DELETE FROM student_class_feed 
+                  WHERE pk_class_feed_id = :id; ";
+        $class = "Student";
+        $params = 
+            [
+                ":id"=>$id
+            ];
+        
+        return ($this->executeQuery($query, $class, $params));
+    }
+    
+    
 }
 

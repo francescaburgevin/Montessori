@@ -85,6 +85,8 @@ class ClassFeedRepository extends AbstractRepository
    {
         $query = "INSERT INTO class_feed(edit_date, publish_date, file_path_image, image_description, content, fk_classroom_id) 
                 VALUES(:edit_date, :publish_date, :file_path_image, :image_description, :content, :fk_classroom_id);" ;
+
+        
         $params = [
             ":edit_date"=>$feed->getEditDate(),
             ":publish_date"=>$feed->getPublishDate(), 
@@ -94,13 +96,51 @@ class ClassFeedRepository extends AbstractRepository
             ":fk_classroom_id"=>$feed->getClassroomId()
             ];
         $class = "ClassFeed";
-        
+
         $this->executeQuery($query, $class, $params);
         
         return true;
        
    }//end function add
    
+   
+      public function insertStudentFeed(int $classFeed, int $student)
+   {
+        $query = "INSERT INTO student_class_feed(pk_student_id, pk_class_feed_id) 
+                  VALUES(:student_id, :class_feed_id);" ;
+        $params = [
+            ":student_id"=>$student,
+            ":class_feed_id"=>$classFeed
+            ];
+        $class = "ClassFeed";
+        return ($this->executeQuery($query, $class, $params));
+   }
+   
+      public function deleteStudentFeed(int $classFeed, int $student)
+   {
+        $query = "DELETE FROM student_class_feed
+                  WHERE pk_class_feed_id = :class_feed_id 
+                  AND pk_student_id = :student_id ;" ;
+        $params = [
+            ":student_id"=>$student,
+            ":class_feed_id"=>$classFeed
+            ];
+        $class = "ClassFeed";
+        return ($this->executeQuery($query, $class, $params));
+   }
+   
+   
+   public function findLast()
+   {
+        $query = "SELECT class_feed.id 
+                  FROM class_feed 
+                  ORDER BY id DESC LIMIT 1;" ;
+        $class = "ClassFeed";
+        return ($this->executeQuery($query, $class));
+   }
+    
+    
+    
        
     /*
    * delete feed in database
@@ -124,16 +164,17 @@ class ClassFeedRepository extends AbstractRepository
    * @params ClassFeed $feed
    */
    
-   public function update(ClassFeed $feed){
-       
+   public function update(ClassFeed $feed)
+   {
+    
         $query = "UPDATE class_feed 
                   SET  
                     edit_date = :edit_date, 
                     publish_date = :publish_date,
                     file_path_image = :file_path_image,
                     image_description = :image_description,
-                    content = :content, 
-                  WHERE id = :id;";
+                    content = :content 
+                  WHERE id = :id ;";
         $params = [
             ":id"=>$feed->getId(),
             ":edit_date"=>$feed->getEditDate(),
@@ -142,6 +183,7 @@ class ClassFeedRepository extends AbstractRepository
             ":image_description"=>$feed->getImageDescription(),
             ":content"=>$feed->getContent()
         ];
+        
         return $this->executeQuery($query, "ClassFeed", $params);
     }// end function update
    

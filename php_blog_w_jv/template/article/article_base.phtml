@@ -1,0 +1,81 @@
+
+    
+    <h1>Liste des Articles</h1>
+
+<?php
+
+    $render_tbody="";
+    
+    if( !count($params["articles"]) )
+    { $render_tbody = "<tr> <td> Aucun article </td>"; 
+    }
+  
+            
+
+
+    // iterate over array by index and by name
+    foreach($params["articles"] as $key => $article)
+    {
+        $actions = "";
+        if(Service::checkIfUserIsConnected())
+        {
+            $actions=                    
+                "
+                    <button type='button' data-article_id=".$article->getId()." class='btn btn-primary mybtn js_article_button_deleted' data-bs-toggle='modal' data-bs-target='#exampleModal'>Supprimer</button>
+                    <a href='/?page=article_add' class='mybtn btn btn-primary'>Modifier</a>
+                ";
+        }
+         
+        $render_tbody .= 
+        "<tr> 
+            <td>" . $article->getId() ."</td>
+            <td id='article-title'>" . utf8_encode($article->getTitle()) ."</td>
+            <td>" . $article->getPublishedDate() ."</td>
+            <td id='article-butttons'> 
+                <a href='/Blog/public/?article_id=" . $article->getId(). "&page=article_show'> <button class='btn btn-primary mybtn'> Lire </button> </a>"
+            . $actions .
+        "</tr>";
+    }
+    
+?>
+
+
+
+
+<section>
+    <table class="articles_table">
+    
+        <thead>
+        </thead>
+    
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td>Titre</td>
+                <td>Date de publication</td>
+                <td>
+                    <?php
+                        if(Service::checkIfUserIsConnected())
+                        {
+                            echo "Action";
+                        }
+                    ?>
+                </td>
+
+                
+            </tr>
+    
+            <?php
+                echo $render_tbody;
+            ?>
+            
+        </tbody>
+    
+    </table>
+    
+</section>
+
+<?php
+include_once dirname(__DIR__) . "/article/template_part/__deleted_modal.phtml";
+
+?>

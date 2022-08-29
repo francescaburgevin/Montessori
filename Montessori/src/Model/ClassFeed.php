@@ -12,12 +12,12 @@ class ClassFeed {
     private int $id;
 
     /**
-     * @var datetime $edit_date
+     * @var string $edit_date
      */
     private string $edit_date;
 
     /**
-     * @var date $publish_date
+     * @var ?string $publish_date
      */
     private ?string $publish_date;
 
@@ -106,24 +106,34 @@ class ClassFeed {
     /**
      * Get $publish_date
      *
-     * @return  string
+     * @return  ?string
      */
-    public function getPublishDate(): string
+    public function getPublishDate(): ?string
     {
-        $date = new DateTime($this->publish_date);        
-        return $date->format('Y-m-d');
+        if(is_null($this->publish_date)){
+            return $this->publish_date;
+        } else {
+            $date = new DateTime($this->publish_date);        
+            return $date->format('Y-m-d');
+        }
     }
 
     /**
      * Set $publish_date
      *
-     * @param  string  $publish_date
+     * @param  ?string  $publish_date
      *
      * @return  self
      */
-    public function setPublishDate(string $publish_date): void
+    public function setPublishDate(?string $publish_date)
     {
-        $this->publish_date = $publish_date;
+        if(is_null($publish_date)){
+            $this->publish_date = NULL;
+        } else 
+            {
+                $this->publish_date = $publish_date;
+            }
+        
     }
     
     
@@ -274,5 +284,22 @@ class ClassFeed {
         }
         return $students_linked;
     }
+ 
+ 
+    /**
+     * Pour convertir un objet en Json 
+     */
+    public function jsonSerialize()
+    {
+        $objectArray = [];
+        
+        foreach($this as $key => $value) {
+            $objectArray[$key] = $value;
+            
+        }
     
+    array_push($objectArray, $this->getLinkedStudents());
+        
+        return json_encode($objectArray);
+    }   
 }

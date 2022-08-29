@@ -31,6 +31,7 @@ class ClassFeedController extends AbstractController
      */
     public function facultyFeed(): string
     {
+        
         $classFeedRepository = new ClassFeedRepository();
         $allRelatedFeeds = $classFeedRepository->getFeedByClassId($_GET['class-id']);
         
@@ -57,7 +58,8 @@ class ClassFeedController extends AbstractController
         
         if (Service::checkIfUserIsConnected())
         {
-            if(
+                if(
+
                     (
                         ($imagePath = Service::moveFile($_FILES["upload-image"]))
                         && (strlen($uploadImageDescription=trim($_POST["upload-image-description"])))
@@ -71,7 +73,6 @@ class ClassFeedController extends AbstractController
                         && ($classId = ($_POST["class-id"]))
                     )
             ){
-                $publishDate = $_POST["publish-date"];
                 
                 $newFeed = new ClassFeed();
                 $newFeed->setClassroomId($classId);
@@ -82,35 +83,52 @@ class ClassFeedController extends AbstractController
                     $newFeed->setImageDescription($uploadImageDescription);
                 }
                 
-                if($content)
+                if($_POST["content"])
                 {
-                    $newFeed->setContent($content);
+                    $newFeed->setContent($_POST["content"]);
                 }
                 
+             
                 
-                if($publishDate)
+                if(isset($_POST["publish_date"]) && ($_POST["publish-date"])!=null)
                 {
-                    $publishDate = new DateTime();
-                    $publishDate = $publishDate->format("Y-m-d");
+                    $publishDate = new DateTime($_POST["publish-date"]);
+                    $newFeed->setPublishDate($publishDate->format("Y-m-d"));
+                } else {
+                    $newFeed->setPublishDate(null);
+                }
                     
-                    $newFeed->setPublishDate($publishDate);
-                }
+                
                 
                 $editDate = "";
                 $editDate = new DateTime("now");
                 $editDate = $editDate->format("Y-m-d H:i:s");
                 $newFeed->setEditDate($editDate);
             
+                $classFeedRepository = new ClassFeedRepository();
                 $classFeedRepository->add($newFeed);
+                
+                $feedId = $classFeedRepository->findLast();
+                
+                foreach($studentList as $key=>$studentId)
+                {
+                    $classFeedRepository->insertStudentFeed($feedId->getId(), intval($studentId));
+                }
+            
             }
             
            header("Location: ?page=faculty_class_feed&class-id=".$_POST['class-id']);
-            
         }
     
         return $this->renderView("/template/feed/faculty_class_feed.phtml");
     }//end function addFeed
     
+    /*
+    public funtion editFeedPublish()
+    {
+        
+    }
+    */
     
     public function editFeed()
     {
@@ -124,58 +142,96 @@ class ClassFeedController extends AbstractController
         if (Service::checkIfUserIsConnected())
         {
             if(
-                isset($_GET["feed_id"])
-                && $feed = $classFeedRepository->findOne(intval($_GET["feed_id"]))
+                isset($_POST["feed-id"])
+                && $feed = $classFeedRepository->findOne(intval($_POST["feed-id"]))
             ){
                 if(
                     (
-                        ($imagePath = Service::moveFile($_FILES["upload-image"]))
-                        && (strlen($uploadImageDescription=trim($_POST["upload-image-description"])))
-                        && (count($studentList=($_POST["add-feed-list-students"])))
+                        (strlen($uploadImageDescription=trim($_POST["edit-upload-image-description"])))
+                        && (count($studentList=($_POST["edit-feed-list-students"])))
                         && ($classId = ($_POST["class-id"]))
                     ) 
                     || 
                     (
-                        (strlen($content=trim($_POST["content"])))
-                        &&  count($studentList=($_POST["add-feed-list-students"]))
+                        (strlen($content=trim($_POST["edit-content"])))
+                        &&  count($studentList=($_POST["edit-feed-list-students"]))
                         && ($classId = ($_POST["class-id"]))
                     )
                 ){
                     
-                    if($content)
+                    if($_POST["edit-content"])
                     {
-                        $feed->setContent($content);
+                        $feed->setContent(trim($_POST["edit-content"]));
+                    } else {
+                        $feed->setContent("");
                     }
-    
-                    if($uploadImageDescription)
+
+                    if($_POST["edit-upload-image-description"])
                     {
-                        $feed->setImageDescription($uploadImageDescription);
-                    }
-    
-                    if($_POST["publish_date"])
+                        $feed->setImageDescription(trim($_POST["edit-upload-image-description"]));
+                    } else 
+                        {
+                            $feed->setImageDescription("");
+                        }
+        
+        
+                    if(!empty($_POST["edit-publish-date"]))
                     {
-                        $feed->setPublishDate($_POST["publish-date"]);
-                    }
+                        $publishDate = new DateTime($_POST["publish-date"]);
+                        $feed->setPublishDate($publishDate->format("Y-m-d"));
+                    } 
                     
-                    if($imagePath)
+                    if($_FILES["edit-upload-image"]["size"] > 0)
                     {
-                        $file_deleted = $feed->getFilePathImage();
-                        if (file_exists($file_deleted)) unlink($file_deleted);
-                        $feed->setFilePathImage($imagePath);        
+                        $deleteImage = $feed->getFilePathImage();
+                        unlink($deleteImage);
+                        //unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
+                        $newImage = Service::moveFile($_FILES["edit-upload-image"]);
+                        $feed->setFilePathImage($newImage);
                     }
-    
+                            
                     $editDate = "";
                     $editDate = new DateTime("now");
                     $editDate = $editDate->format("Y-m-d H:i:s");
                     $feed->setEditDate($editDate);
     
-                    $this->classFeedRepository->update($feed);
+                    $classFeedRepository = new ClassFeedRepository();
+                    $classFeedRepository->update($feed);
+                    
+                    
+                    //$feed = $classFeedRepository->findLast();
+                    
+                    $newStudentList = $_POST["edit-feed-list-students"];
+                    $oldStudentList = $feed->getLinkedStudents();
+                    
+                    var_dump($oldStudentList);
+                    
+                    if(is_null($oldStudentList)){ $oldStudentList=[]; };
+                    
+                    var_dump($oldStudentList);
+                    
+                    
+                    foreach($newStudentList as $key=>$studentId)
+                    {   
+                        if(!in_array(intval($studentId), $oldStudentList))
+                        {
+                            $classFeedRepository->insertStudentFeed($feed->getId(), intval($studentId));
+                        }
+                    }
+                    
+                    foreach($oldStudentList as $key=>$studentId)
+                    {
+                        if(!in_array($studentId, $newStudentList))
+                        {
+                            $classFeedRepository->deleteStudentFeed($feed->getId(), intval($studentId));
+                        }
+                    }
+                    
+                    
                 }
-        
                 header("Location: ?page=faculty_class_feed&class-id=".$_POST['class-id']);
             }
-            
-        return $this->renderView("/template/feed/faculty_class_feed.phtml");
+            return $this->renderView("/template/feed/faculty_class_feed.phtml");
         }
 
     }// end function editFeed
@@ -184,33 +240,43 @@ class ClassFeedController extends AbstractController
     public function deleteFeed()
     {
         $classFeedRepository = new ClassFeedRepository();
-        $feed = $classFeedRepository->findOne(intval($_GET["class-feed-id"]));
-                
+        $feed = $classFeedRepository->findOne(intval($_GET["feed-id"]));
         if (
             Service::checkIfUserIsConnected()
-            && isset($_GET["class-feed-id"])
+            && isset($_GET["feed-id"])
             && $feed
         ) {
-            var_dump($feed->getFilePathImage());
-            //supprime l'image lié à l'article 
-            unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
+            if(!empty($feed->getFilePathImage())){
+                //supprime l'image lié à l'article 
+                //$deleteImage = $feed->getFilePathImage();
+                //unlink($deleteImage);
+                unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
+            }
+            
+            //delete comments
+            $commentsRepository = new CommentRepository();
+            $commentsRepository->deleteComments($feed->getId());
+            
+            //delete student classfeed
+            $studentRepository = new StudentRepository();
+            $studentRepository->deleteStudents($feed->getId());
+            
             // supprime le feed
-            $this->classFeedRepository->delete($feed);
+            $classFeedRepository->delete($feed);
             // Redirect vers la page listant les articles 
-             header("Location: ?page=faculty_class_feed&class-id=".$_POST['class-id']);
+             header("Location: ?page=faculty_class_feed&class-id=".$feed->getClassroomId());
         }
+        
+          return $this->renderView("/template/feed/faculty_class_feed.phtml");
            
     }//end function deleteFeed
     
 
-    public function retrieveFeed(int $id)
+// simply retreive info, no page load
+    public function xmlRetrieve()
     {
-        var_dump("in retrieve feed");
         $classFeedRepository = new ClassFeedRepository();
-        $feed = $classFeedRepository->findOne($id);
-    
-        return $this->renderView("/template/feed/xml/edit.php", [
-            'feed'=>$feed
-            ]);
+        $feed = $classFeedRepository->findOne($_GET["feed_id"]);
+        print($feed->jsonSerialize());
     }
 }

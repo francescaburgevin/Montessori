@@ -14,7 +14,7 @@
     row-gap: 2em;
 }
 
-.add-feed-template, .add-form-cancel, .edit-feed-template, .delete-feed-template{
+.add-feed-template, .add-form-cancel, .edit-modal-content, .delete-feed-content{
     display:none;
 }
 
@@ -27,9 +27,6 @@
     vertical-align: top;
 }
 
-#modal-edit{
-    display:none;
-}
 
 .show{
     display:block;
@@ -51,7 +48,6 @@
     height:95vh;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid var(--primary);
     overflow:scroll;
     overflow-x:hidden;
     scrollbar-color: var(--turquoise);
@@ -60,11 +56,18 @@
 }
 
 .feed-post{
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--gray);
+    margin-bottom: 1em;
+    border-radius: 1em;
+    padding: 1em;
 }
 
 .class-feed-image{
-    width: 100%;
+    width: 50%;
+    max-height: 400px;
     height: fit-content;
     object-fit: cover;    
 }
@@ -74,9 +77,29 @@
     font-style: italic;
 }
 
+.parent-comment-card, .child-comment-card{
+    display:flex;
+    flex-direction: row;
+    align-items: first baseline;
+    justify-content: space-between;
+}
+
 .feed-comment p{
     color:var(--gray);
     padding-left:2em;
+}
+
+.child-comment{
+    padding-right:1em;
+    margin:0;
+}
+
+.parent-child-options, .child-comment-options{
+    min-width:160px;
+}
+
+.related-comment{
+    margin-left: 15px;
 }
 
 .edit-feed-header{
@@ -85,28 +108,43 @@
     justify-content:space-between;
 }
 
-.btn-close{
-    background-color:transparent;
-    color:var(--secondary);
-    width:fit-content;
+.feed-post-btn{
+    display: flex;
+    flex-direction: row;
+    column-gap: 2em;
 }
 
 
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  animation-name: animatetop;
-  animation-duration: 0.4s
+.edit-modal-content, .delete-feed-content {
+    position: absolute;
+    background-color: #fefefe;
+    padding: 2em;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 1s;
+    text-align:center;
+    margin-left:30%;
+    top: 25%;
+}
+
+#edit-existing-image{
+    width:200px;
+}
+
+.edit-feed-footer{
+  display: flex;
+  justify-content: center;
+}
+
+.edit-feed-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
 }
 
 /* Add Animation */
-@keyframes animatetop {
+@keyframes animatetop{
   from {top: -300px; opacity: 0}
-  to {top: 0; opacity: 1}
+  to {top: 25%; opacity: 1}
 }
-

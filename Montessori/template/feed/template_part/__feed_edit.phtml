@@ -1,40 +1,46 @@
-<div class="modal-content" id="modal-edit">
+<div class="edit-modal-content" id="modal-edit">
       
-      <div class="edit-feed-header">
+    <div class="edit-feed-header">
         <h5>Modifier le feed</h5>
-       </div>
+    </div>
       
-      <div class="edit-feed-body">
-            
-        <form action="?page=feed_edit" class="edit-feed-form" method="POST" enctype="multipart/form-data">
+    <div class="edit-feed-body">
+   
+    <form action="?page=feed_edit" class="edit-feed-form" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id="action-feed-id" name="feed-id" value="">
         <input type="hidden" value="<?php echo $_GET['class-id'] ?>" name="class-id">
         
-            <div class="edit-feed-upload-image">
-                <div>
-                    <label for="upload-image">Télécharger un fichier png|jpeg|jpg : </label>
-                    <input type="file" id="upload-image" name="upload-image" accept="image/png, image/jpeg, image/jpg" value="<?php if($feed->getFilePathImage()) echo $feed->getFilePathImage(); ?>">
-                </div>
-                <div>
-                    <label for="upload-image-description" class="edit-feed-upload-image-description">
-                        Description de l'image
-                        <img style="width:13px; vertical-align:middle" src="/Montessori/public/assets/images/extra/malentendant_pictogramer.png" alt="icon hearing impaired"></img>: 
-                    </label>
-                    <input type="text" name="upload-image-description" id="upload-image-description" value="<?php if($feed->getImageDescription()) echo $feed->getImageDescription(); ?>"/>
-                </div>
+        <div class="edit-feed-upload-image">
+            <div>
+                <img id="edit-existing-image" src=""></img>
+            </div>
+            
+            <div>
+                <label for="edit-upload-image">Remplacer l'image : </label>
+                <input type="file" id="edit-upload-image" name="edit-upload-image" accept="image/png, image/jpeg, image/jpg">
             </div>
         
+            <div>
+                <label for="edit-upload-image-description" class="edit-feed-upload-image-description">
+                    Description de l'image
+                    <img style="width:13px; vertical-align:middle" src="/Montessori/public/assets/images/extra/malentendant_pictogramer.png" alt="icon hearing impaired"></img>: 
+                </label>
+                <input type="text" name="edit-upload-image-description" id="edit-upload-image-description" value=""/>
+            </div>
+        </div>
+        
         <div>
-            <label for="content" class="edit-feed-content">Description</label>
-            <textarea id="content" name="content" rows="5" cols="33"> <?php if($feed->getContent()) echo $feed->getContent(); ?></textarea>
+            <label for="edit-content" class="edit-feed-content">Description</label>
+            <textarea id="edit-content" name="edit-content" rows="5" cols="33"></textarea>
         </div>
 
 
         <div>
             <label for="edit-feed-list-students" class="edit-feed-list-students">Qui apparaîsse ? </label>
-            <select class="edit-feed-list-select" id="edit-feed-list-students" name="edit-feed-list-students" multiple name="students[]">
+            <select class="edit-feed-list-select" id="edit-feed-list-students" name="edit-feed-list-students[]" multiple>
 
                 <?php foreach($studentList as $key => $student): ?>
-                    <option value="<?php $student->getId(); ?>" <?php if(in_array($student->getId(), $feed->getLinkedStudents())) echo "selected"; ?>> <?php echo $student->getLastname() ." ".$student->getFirstname(); ?> </option>
+                    <option class="edit-option" value="<?php echo $student->getId(); ?>" > <?php echo $student->getLastname() ." ".$student->getFirstname(); ?> </option>
                 <?php endforeach; ?>
                 
             </select>
@@ -42,29 +48,22 @@
 
 
         <div>
-            <label for="publish-date" class="feed-add-publish-date">Publier?</label>
-            <input type="checkbox" name="publish-date" id="publish-date" value="<?php if(!empty($feed->getPublishDate())) echo 'on' ?>">
+            <label for="edit-publish-date" class="feed-add-publish-date">Publier?</label>
+            <input type="checkbox" name="edit-publish-date" id="edit-publish-date" value="">
         </div>
-        
-      </form>
     
-    
-    
-      </div>
       
       <div class="edit-feed-footer">
-        <button type="button" class="edit-form-cancel">Annuler</button>
+        <button type="button" class="edit-form-cancel btn">Annuler</button>
 
-        <form method="GET">
-          <input type="hidden" name="page" value="feed_edit"/>
-          <input type="hidden" id="js_feed_edit_id" name="class_feed_id"/>
+
+
           <input type="submit" class="btn" id="edit-feed-submit-btn" value="Sauvegarder"/>
-        </form>
 
       </div>
-      
+    </form>
     </div>
-
+ </div>
 
 
 

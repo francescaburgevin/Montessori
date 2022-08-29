@@ -64,14 +64,22 @@ class UserController extends AbstractController
                 isset($_POST["username"])
                 && isset($_POST["password"])
             ){
-                $username = trim($_POST["username"]);
-                $password = trim($_POST["password"]);
+                $username = htmlspecialchars(trim($_POST["username"]));
+                $password = htmlspecialchars(trim($_POST["password"]));
 
                 //initiate a UserRepository object
                 $userRepository = new UserRepository();
                 $user = $userRepository->userExists($username);
                 
-                //check if user exists
+                if($user==null){
+                    $message= "Username n'existe pas.";
+                    return $this->renderView("/template/user/user_connection.phtml", [
+                        "message"=>$message
+                    ]);
+                }
+
+
+                //if user exists
                 if($user){
  
                     if($user->getAccountActive())
@@ -80,21 +88,26 @@ class UserController extends AbstractController
                         {
                             header("Location: ?page=".$_SESSION['user_role']);  
                         } else {
-                            var_dump ("Password incorrect.");
+                            $message= "Mot de passe incorrecte.";
+                            return $this->renderView("/template/user/user_connection.phtml", [
+                                "message"=>$message
+                            ]);
                         }
                     } else {
-                        var_dump("Account is not active.");
+                        $message= "Le compte n'est pas actif.";
+                        return $this->renderView("/template/user/user_connection.phtml", [
+                            "message"=>$message
+                        ]);
                     }
                 }
                 
-                if(!$user){
-                    var_dump("Username n'existe pas.");
-                }
             }
         
         
         //if input empty, show user_connection page
-        return $this->renderView("/template/user/user_connection.phtml");
+        return $this->renderView("/template/user/user_connection.phtml", [
+            "message"=>""
+            ]);
         
     }//end function connection
     
@@ -102,6 +115,12 @@ class UserController extends AbstractController
     public function deconnection()
     {
             unset($_SESSION["login"]);
+            unset($_SESSION['firstname']);
+            unset($_SESSION['username']);
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_permission']);
+            unset($_SESSION['user_role']);
+            
             header("Location: ?page=home");            
     }//end function deconnexion
 

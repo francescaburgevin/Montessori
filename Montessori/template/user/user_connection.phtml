@@ -4,6 +4,10 @@
   
   <form method="POST">
       
+    <div class="error-login-message">
+      <p><?php echo $message?></p>
+    </div>
+    
     <div class="form-input">  
       <label for="username" class="login-label"></label>
       <input type="text" placeholder="Username" name="username" id="username"/>
@@ -13,7 +17,7 @@
       <label for="password" class="login-label"></label>
       <input type="text" placeholder="Mot de passe" name="password" id="password"/>
     </div>
-
+    
     <div class="option-password">
       <a href="mailto:francesca.nadel@3wa.io">Mot de passe oublié?</a>
     </div>
@@ -21,7 +25,7 @@
     <button type="submit" class="btn" id="login-submit">Se Connecter</button>
         
     <div class="text-center">
-      <p>L'accès a cet espace nécessite une inscription par la direction. 
+      <p>L'accès a cet espace nécessite une inscription par la direction.</p> 
       <a href="mailto:francesca.nadel@3wa.io">Demandez votre inscription 
       <strong style="color:var(--secondary)">ICI</strong></a>
     </div>

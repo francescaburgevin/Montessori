@@ -1,0 +1,25 @@
+body{
+    background-color : #bada55;
+    text-align:center;
+};
+
+main{
+    display:flex;
+    justify-content: center;
+
+}
+
+section{
+    display:flex;
+    justify-content: center;
+}
+
+
+
+.user_add_form{
+    margin-right:auto;
+    margin-left:auto;
+    display:flex;
+    flex-direction:column;   
+    width: 40%;
+}
