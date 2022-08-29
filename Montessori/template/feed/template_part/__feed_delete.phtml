@@ -1,0 +1,28 @@
+<div class="delete-feed-dialog" id="delete-feed-dialog" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="delete-feed-header">
+        <h5>Confirmation</h5>
+        <button type="button" class="btn" data-dismiss="close-dialog"></button>
+      </div>
+      
+      <div class="delete-feed-body">
+        <p>Validez-vous la suppression de ce feed ?</p>
+        <p>Une fois supprimé, il n'est pas récupérable.</p>
+      </div>
+      
+      <div class="delete-feed-footer">
+        <button type="button" class="btn" data-dismiss="close-dialog">Annuler</button>
+
+        <form method="GET">
+          <input type="hidden" name="page" value="feed_delete"/>
+          <input type="hidden" class="js_feed_button_delete" id="js_feed_delete_id" name="class_feed_id"/>
+          <input type="submit" class="btn" value="Supprimer"/>
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>

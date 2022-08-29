@@ -1,0 +1,49 @@
+<header>
+  <nav class="navigation">
+  
+    <div class="logo">
+      <a href="/Montessori/index.php?page=home">
+        <img src="/Montessori/public/assets/images/logo/montessori_logo_color_bg_white_rc.svg"></img>
+      </a>
+    </div>
+    
+    <button class="toggle-wrap">
+      
+     
+        <span class="menu-bar"></span>
+
+      <span class="toggle-menu">
+        <a href="/Montessori/?page=home">Accueil</a>
+  
+      <?php
+          if(isset($_SESSION["user_role"]))
+          {
+            if(($_SESSION["user_role"])=="parent")
+            {
+              echo "<a href='/Montessori/?page=parent'>Compte</a>";
+            }
+            if(($_SESSION["user_role"])=="faculty")
+            {
+              echo "<a href='/Montessori/?page=faculty'>Compte</a>";
+            }
+          }
+        ?>
+        
+        <?php
+          if(isset($_SESSION["login"]))
+          {
+            echo "<a href='/Montessori/?page=user_deconnection'>Déconnecter</a>";
+          } else {
+            echo "<a href='/Montessori/?page=user_connection'>Connecter</a>";
+          }
+        ?>
+      </span> 
+    
+
+       </button>
+       
+  </nav>
+
+</header>
+        
+        

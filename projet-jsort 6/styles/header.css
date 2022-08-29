@@ -1,0 +1,225 @@
+
+/* header information */
+header {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* header top bar */
+header .top {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+/* header top bar left */
+header .left {
+    width: 48%;
+    padding-left: 1em;
+    padding-top: 1em;
+    display: flex;
+    justify-content:flex-start;
+}
+
+/* logo "J." */
+header .top .left h2 {
+    color: #5ce1e6;
+    font-family: 'glacial-regular';
+    padding: 1em;
+    margin: 0;
+    font-size: 3em;
+}
+
+/* logo "sort" */
+header .top .left span {
+    color: white;
+    font-family: 'now-black';
+}
+
+/* header top bar right */
+header .right {
+    width: 48%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* sidebar wrapper */
+#wrapper {
+    width: 170px;
+    padding-top: 1em;
+    margin-top: 2em;
+    padding-bottom: 1em;
+}     
+
+/* header navigation sidebar MENU */
+.menu {
+    position: fixed;
+    top: 10%;
+    background-image: linear-gradient(335deg, #5ce1e6 0%, #5e17eb 74%);
+    box-sizing: border-box;
+    transition: all 250ms;
+    transform: translateZ(0) translateX(400%);
+    text-align: center;
+}
+
+/* p in menu sidebar */
+.menu p {
+    margin-top: -30px;
+    margin-bottom: 0px;
+    float: right;
+    color: #5ce1e6;
+    padding-right: 10%;
+}
+
+/* h2 in menu sidebar */
+.menu h2{
+    font-family: 'now-black';
+    color: white;
+    padding-top: 8%;
+}
+
+/* list section in menu */
+header ul{
+    padding-left: 2%;
+    list-style: none;
+    font-family: 'glacial-italic';
+}
+
+/* list items in menu */
+header li{
+    padding: 1em;
+}
+
+/* link to pages in menu */
+header .menu a{
+    text-decoration: none;
+    padding: 0.5em 0.5em;
+    color: white;
+    letter-spacing: 2px;
+}
+
+/* link to pages*/
+header a:hover {
+    font-weight: bolder;
+}
+
+header .content {
+    position: relative;
+}
+
+/* menu button to activate */
+header .right .button {    
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+}
+
+
+/* menu lines when inactive */
+.content .line {
+    width: 30px;
+    height: 4px;
+    background-color: #5ce1e6;
+}
+
+.line.first {
+    transform: translateX(40px) translateY(14px) rotate(0deg);
+}
+
+.line.second {
+    transform: translateX(40px) translateY(18px) rotate(0deg);
+}
+
+.line.third {
+    transform: translateX(40px) translateY(22px) rotate(0deg);
+}
+
+/* transition to active */
+.active {
+    transform: translateZ(0) translateX(0);
+    transition: 0.4s;
+}
+
+/* menu lines when active */
+.button.on .line.first, .button.on .line.second, .button.on .line.third {
+    transform: translateX(60px) translateY(12px) rotate(45deg);
+    background-color: transparent;
+    border: none;
+}
+
+
+/* header main title */
+.center {
+    width: 100%;
+    text-align: center;
+    color:white;
+    font-family: 'now-black';
+    font-size: 4vmax;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+
+/* responsive design */
+
+
+/* tablet 768 to 1024 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {    
+
+    /* header main title */
+    .center {
+        font-size: 3vmax;
+    }
+
+    /* header buttons alignment*/
+    .header-buttons {
+        justify-content: center;
+        row-gap: 10px;
+    }
+
+}
+
+/* telephone mobile under 768 */
+@media screen and (max-width: 768px) {
+    
+    header .top {
+        align-items: center;
+    }
+
+   header .left {
+       width: 33%;
+   }
+
+   header .top .left h2 {
+        padding: 0px;
+        padding-left: 0.5em;
+        padding-top: 0.4em;
+        font-size: 2em;
+   }
+
+   header .right {
+       width: 52%;
+   }
+
+    header .left h1 {
+        font-size: 3em;
+    }
+
+    header .left h3 {
+        text-align: center;
+    }
+
+    .header-buttons {
+        row-gap: 5px;
+    }
+
+}
+

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../styles/bordeaux-restaurant-leregent.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+
+    <title>jSort-Le Regent </title>
+</head>
+<body>
+    
+    <header>
+         
+        <!-- divide header in 2 columns -->
+        <div class="top">
+            
+            <!-- header left -->
+            <div class="left">
+                <!-- logo name --> 
+                <h2>J. <span>sort</span></h2>    
+            </div>
+                
+            <!-- right sidebar -->
+            <div class="right">
+
+                <!-- sidebar -->
+                <div id="wrapper">
+
+                    <!-- button to activate sidebar-->
+                    <div class="content">
+                        <div class="button">
+                            <div class="line first top"></div>
+                            <div class="line second bottom"></div>
+                            <div class="line third"></div>
+
+                        </div>
+                    </div>
+            
+                    <!-- sidebar menu -->
+                    <div class="menu">
+                        <p>X</p>
+                        <h2>MENU</h2>
+                        <ul>
+                            <li><a href="../pages/index.html">Accueil</a></li>
+                            <li><a href="../pages/cities.html">Villes</a></li>
+                            <li><a href="../pages/categories.html">Catégories</a></li>
+                            <li><a href="../pages/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- javascript -->
+                    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+                    <script>
+                        function expand(){
+                            $(this).toggleClass("on");
+                            $(".menu").toggleClass("active");
+                            $(".first").toggleClass("active");
+                            $(".second").toggleClass("active");
+                            $(".third").toggleClass("active");
+                        };
+                        
+                        $(".button").on('click', expand);
+                    </script>
+
+                </div>
+                
+            </div>
+
+        </div>
+
+        <!-- bottom center with title -->
+        <div class="center">
+            <h1>Le Regent</h1>
+        </div>
+        
+                
+    </header>
+    
+    <main>
+
+        <section class="section-1">
+            <!-- coordinates : adress, email, tel, hours.-->
+            <div class="left-info-section">
+                <p> <strong> Adresse : </strong> 123 rue Lafayette, 33000 Bordeaux</p>
+                <p> <strong> Numéro de téléphone :</strong> 01 23 45 67 89</p>
+                <p> <strong> Adresse mail :</strong> leregent@gmail.com</p>
+
+                <!-- link to site web et social networks -->
+                <div class="icon-networks">
+                    <button> <a href="https://www.bistro-regent.fr/bordeaux/">Site Web</a></button>
+                    <img src="../assets/images/icons/reseaux-sociaux-couleur/317720_social_twitter_social media_tweet.png" alt="twitter icon">
+                    <img src="../assets/images/icons/reseaux-sociaux-couleur/317752_social media_facebook_social_circle.png" alt="facebook icon">
+                </div>
+       
+                <!-- link to google maps -->
+                <button> <a href="https://www.bistro-regent.fr/ou-trouver-les-bistros/">Itinéraire</a></button>
+                
+                
+                <!-- horaires d'ouverture -->
+                <p> <strong> Horaires :</strong>
+                    <ul>
+                        <li>Lundi à Vendredi de 11h à 23h00</li>
+                        <li>Samedi de 9h à 1h00</li>
+                        <li>Dimanche fermé</li>
+                    </ul>
+                </p>
+       
+                <!-- payment method -->
+                <p> <strong> Moyens de paiement : </strong>
+                    <img src="../assets/images/icons/moyens-de-paiement/icon-visa.png" alt="visa credt card icon">
+                    <img src="../assets/images/icons/moyens-de-paiement/icon-mastercard.png" alt="master card credit card icon ">
+                    <img src="../assets/images/icons/moyens-de-paiement/icon-paypal.png" alt="paypay icon">
+                    <img src="../assets/images/icons/moyens-de-paiement/icon-bitcoin.png" alt="bitcoin icon">
+                </p>
+
+                <!-- great for categories -->
+                <p> <strong> Parfait pour : </strong>repas en famille, pot de départ</p>
+
+                
+            </div>
+
+            <!-- map -->
+            <div class="right-info-section">
+                <img src="../assets/images/businesses/le-regent/le-regent-map.png" alt="map image">
+            </div>
+        </section>
+
+        
+        <div class="description">
+            <h3>Description du lieu :</h3>
+            <p>Bistro Régent vous propose une cuisine savoureuse au sein d’une ambiance décontractée. A l’origine, un bistro constituait le privilégié des classes populaires qui venaient s’y détendre après une journée de travail. </p>
+            <p>Le concept de bistro lancé par Marc Vanhove perpétue cet esprit qui met à l’honneur des plats authentiques, propices à des repas entre amis. Selon Jean-Luc Petitrenaud, critique gastronomique réputé, la cuisine de bistro est “une cuisine de couisse, comme vouée au temps […] elle est spontanée, vivante”.</p>
+        </div>
+
+        <h3>Commentaires :</h3>
+        <div class="comments">
+            <div class="comment-tab">
+                <h4>Boire un verre</h4>
+                <p>Merci à Madame Eva pour son accueil ! Service au top, sourire, humour....c'est long 100 caractère minimum, ah ça y est ! 😁</p> 
+            </div>
+            <div class="comment-tab">
+                <h4>Repas en famille :-)</h4>
+                <p>Très adapté au fauteuil roulant. WC accessible et propre.</p> 
+            </div>
+            <div class="comment-tab">
+                <h4>Soirée en amoureux</h4>
+                <p>Service impeccable. Bon vin. Plats délicieux. J'y retourne.</p> 
+            </div>
+            <div class="comment-tab">
+                <h4>Verre entre amis</h4>
+                <p>Moment agréable entre amis pour un pichet et une planche.</p> 
+            </div>
+        </div>
+
+        <h3>Photos du lieux :</h3>
+        <div class="photos">
+            <img src="../assets/images/businesses/le-regent/le-regent-1.jpg" alt="restaurant le regent">
+            <img src="../assets/images/businesses/le-regent/le-regent-2.jpg" alt="restaurant le regent">
+            <img src="../assets/images/businesses/le-regent/le-regent-4.jpeg" alt="restaurant le regent">
+            <img src="../assets/images/businesses/le-regent/le-regent-dish.jpeg" alt="dish of steak and fries">
+        </div>
+        
+    </main>
+
+   <!-- 3 columns : newsletter, social networks, contact info -->
+   <footer>
+
+        <!-- left column : newsletter -->
+        <div class="newsletter">
+            <p>Inscrivez-vous au newsletter pour rester au courant de nouveautés :</p>
+
+            <div class="sign-up">
+                <label for="user-email"></label>
+                <input type="email" name="user-email" id="user-email" placeholder="Adresse mail">
+                <button type="submit">J. m'inscrit !</button>
+            </div>
+
+        </div>
+
+       <!-- center left column : social networks -->
+       <div class="social-networks">
+            <P>Nous suivre sur les réseaux sociaux</P>
+            <img src="../assets/images/icons/reseaux-sociaux-nb/icon-facebook.png" alt="icon facebook">
+            <img src="..//assets/images/icons/reseaux-sociaux-nb/icon-twitter.png" alt="icon twitter">
+            <img src="../assets/images/icons/reseaux-sociaux-nb/icon-pinterest.png" alt="icon pinterest">
+        </div>
+
+        <!-- center right column : links -->
+        <div class="links">
+            <a href="../pages/index.html">A Propos</a>
+            <a href="../pages/index.html">FAQ</a>
+            <a href="../pages/index.html">Conditions</a>
+            <p>&#169; 2022 Francesca & Frédéric </p>
+        </div>
+
+        <!-- contact info, remove link to contact form -->
+        <div class="contact-info">
+            <h4> <span> J.</span> sort, SAS</h4>
+            <p>&#9742 <a href="tel:+33512345678">+33 5 23 45 67 89</a></p>
+            <a href="mailto:contact@jsort.fr">contact@jsort.fr</a>
+        </div>
+
+    </footer>
+
+</body>
+</html>

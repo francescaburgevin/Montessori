@@ -1,0 +1,161 @@
+/* fonts Glacial Indifference and Now */
+
+@font-face {
+    font-family: 'glacial-regular';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Regular.otf');
+}
+
+@font-face {
+    font-family: 'glacial-bold';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Bold.otf');
+}
+
+@font-face {
+    font-family: 'glacial-italic';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Italic.otf');
+}
+
+@font-face {
+    font-family: 'now-regular';
+    src: url('../assets/fonts/now/Now-Regular.otf');
+}
+
+@font-face {
+    font-family: 'now-bold';
+    src: url('../assets/fonts/now/Now-Bold.otf');
+}
+
+@font-face {
+    font-family: 'now-black';
+    src: url('../assets/fonts/now/Now-Black.otf');
+}
+
+/* html and body */
+html,body, footer {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* header image */
+header{
+    background-image: linear-gradient(180deg,rgba(5,20,1,0.6) 0%,rgba(5,20,1,0.6) 100%), url('../assets/images/backgrounds/background-3.webp');
+}
+
+/* main divided left and right */
+main {
+    max-width: 1300px;
+    min-width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5vh;
+    padding-top: 2em;
+}
+
+/* row of tabs */
+.city-tabs {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+/* city tab */
+main .tab{
+    width: 29%;
+    height: 400px;
+    min-width: 200px;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    margin: 1em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* paris */
+#paris {
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/paris-1.jpg");
+}
+
+/* bordeaux */
+#bordeaux { 
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/bordeaux-1.jpg");
+}
+
+/* marseille */
+#marseille {
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/marseille-1.jpg");
+}
+
+/* lyon */
+#lyon {
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/lyon-1.jpg");
+}
+
+/* strasbourg */
+#strasbourg {
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/strasbourg-1.jpeg");
+}
+
+/* toulouse */
+#toulouse {
+    background-image:linear-gradient(180deg, rgba(0,212,255,0.46124387254901966) 34%, rgba(9,9,121,1) 92%), url("../assets/images/cities/toulouse-1.png");
+}
+
+/* main h2 information */
+main h2 {
+    font-family: 'now-black';
+    color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+/* button qualities */
+main button {
+    width: max-content;
+    height: max-content;
+    font-family: 'glacial-regular';
+    background-image: linear-gradient(147deg,#5e17eb 0%,#5ce1e6 100%);
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    padding : 0.5em;
+    font-size: 1em;
+    margin: 1em;
+}
+
+main a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+main button:link, button:hover {
+    background-image: none;
+    color: white;
+}
+
+main a:hover {
+    color: #5e17eb;
+}
+
+
+/* responsive design */
+
+/* telephone mobile under 768 */
+@media screen and (max-width: 768px) {
+
+    main .tab {
+        width: 85%;
+    }
+
+}
+

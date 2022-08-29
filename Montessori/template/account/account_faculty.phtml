@@ -1,0 +1,16 @@
+<section class="account-default">
+</section>
+
+<section class="account-class-list">
+  
+  <?php foreach($classes as $key => $class): ?>
+  
+    <a href="index.php?page=faculty_class_feed&class-id=<?= $class->getId() ?>">
+      <img class="account-class-img" src="<?= $class->getFilePathImage() ?>" alt="class avatar"></img>
+      <h3> <?= $class->getName() ?></h3>
+      <p> <?= $class->getSchoolYear() ?></p>
+    </a>
+
+  <?php endforeach; ?>
+  
+</section>

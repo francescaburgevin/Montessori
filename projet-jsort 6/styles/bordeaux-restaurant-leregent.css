@@ -1,0 +1,216 @@
+/* fonts Glacial Indifference and Now */
+
+@font-face {
+    font-family: 'glacial-regular';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Regular.otf');
+}
+
+@font-face {
+    font-family: 'glacial-bold';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Bold.otf');
+}
+
+@font-face {
+    font-family: 'glacial-italic';
+    src: url('../assets/fonts/glacial-indifference/GlacialIndifference-Italic.otf');
+}
+
+@font-face {
+    font-family: 'now-regular';
+    src: url('../assets/fonts/now/Now-Regular.otf');
+}
+
+@font-face {
+    font-family: 'now-bold';
+    src: url('../assets/fonts/now/Now-Bold.otf');
+}
+
+@font-face {
+    font-family: 'now-black';
+    src: url('../assets/fonts/now/Now-Black.otf');
+}
+
+/* html and body */
+html,body, footer {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* header image */
+header{
+    background-image: linear-gradient(180deg,rgba(5,20,1,0.6) 0%,rgba(5,20,1,0.6) 100%), url('../assets/images/businesses/le-regent/le-regent-3.jpg');
+}
+
+/* main divided left and right */
+main {
+    width: 80%;
+    max-width: 1300px;
+    min-width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5vh;
+    padding-top: 2em;
+}
+
+main, ul  p {
+    font-family: 'glacial-regular';
+    color: gray;
+}
+
+main strong, h3 {
+    font-family: 'glacial-bold';
+}
+
+/* section 1 business information and map */
+.section-1{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+/* left side */
+.left-info-section {
+    width: 50%;
+}
+
+/* right side */
+.right-info-section{
+    width: 50%;
+    align-self: center;
+}
+
+/* right side google map */
+.right-info-section img{
+    width: 80%;
+    padding: 1em;
+    float: right;
+}
+
+/* button qualities : website and itinerary */
+.section-1 button {
+    width: max-content;
+    height: max-content;
+    background-color: transparent;
+    color: #5e17eb;
+    font-family: 'glacial-regular';
+    border: 1px solid #5ce1e6;
+    box-shadow: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    padding : 0.5em;
+    font-size: 1em;
+}
+
+/* link qualities */
+main a {
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+/* link qualities hover */
+main button:hover {
+    background-color: #5e17eb;
+    color: white;
+}
+
+main a:hover {
+    background-color: #5e17eb;
+    color: white;
+}
+
+/* icon images */
+.icon-networks img{
+    vertical-align: middle;
+    padding: 0.5em;
+}
+
+/* description section */
+.description {
+    background-color: beige;
+    padding: 0.5em;
+}
+
+/* comments section*/
+.comments{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+/* comment tabs */
+.comment-tab {
+    width: 20%;
+    border: 1px solid gray;
+    padding: 0.5em;
+}
+
+.comment-tab h4 {
+    font-family: 'glacial-bold';
+    color: #5e17eb;
+}
+
+/* photos section */
+.photos {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding-top: 1em;
+    row-gap: 1em;
+    column-gap: 1em;
+}
+
+/* photo section images */
+.photos img {
+    height: 160px;
+    width: 200px;
+    object-fit: cover;
+}
+
+
+/* responsive design */
+
+
+/* telephone mobile under 768 */
+@media screen and (max-width: 768px) {
+    
+
+    .section-1 {
+        flex-direction: column;
+    }
+
+    .section-1 .left-info-section {
+        width: 100%;
+    }
+    
+    .section-1 .right-info-section {
+        width: 100%;
+    }
+
+    .right-info-section img {
+        width: 100%;
+        padding: 0px;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .description {
+        padding: 1.5em;
+    }
+
+    .comments {
+        flex-direction: column;
+        row-gap: 1em;
+    }
+
+    .comment-tab {
+        width: 100%;
+    }
+
+}
+

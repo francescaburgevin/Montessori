@@ -1,0 +1,15 @@
+<section class="account-parent"></section>
+
+<section class="account-child-list">
+  
+  <?php foreach($children as $key => $child): ?>
+    
+    <a href="index.php?page=class_feed&student-id=<?= $child->getId() ?>">
+      <img class="account-child-img" src="<?= $child->getFilePathImage() ?>" alt="child avatar"></img>
+      <h3> <?= $child->getFirstname() ?></h3>
+      <p> <?= $child->getClassroom()->getName() ?></p>
+    </a>
+
+  <?php endforeach; ?>
+
+</section>

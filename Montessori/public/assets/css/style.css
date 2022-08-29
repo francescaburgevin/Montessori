@@ -1,0 +1,482 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root{
+  --primary: black;
+  --secondary: #FF7595;
+  --turquoise: #80E0E0;
+  --gray: #808080;
+  --success: #228B22;
+  --error: #FF0000; 
+}
+
+.bg-light{
+    background-color: white;
+    color: var(--primary);
+}
+
+.bg-dark{
+    background-color: var(--primary);
+    color:white;
+}
+
+header, main{
+    font-family: "Lato", sans-serif;
+    font-size : 14px;
+    font-weight: 400;
+    color: var(--primary);
+    background-color: #FFFFFF;
+}
+
+body{
+    margin:0;
+    padding:0;
+}
+
+main{
+    margin-right:auto;
+    margin-left:auto;
+
+}
+
+.btn{
+    margin:0.5em;
+    padding: 1em;
+    font-weight: 700;
+    border: 2px solid var(--primary);
+    border-radius: 5px;
+    background-color:transparent;
+}
+
+.btn:hover{
+    padding: 1.2em;
+    font-weight: 900;
+    background-color: var(--primary);
+    color: white;
+    /* ??? what does transition do*/
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+.btn:active{
+    padding: 1.2em;
+    font-weight: 900;
+    background-color: var(--primary);
+    color: white;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+main a, a:visited{
+    text-align:center;
+    text-decoration: none;
+    color: var(--primary);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+
+
+
+.navigation{
+    height:30%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.toggle-menu a, a:visited{
+    text-decoration: none;
+    color: white;
+    font-size:3em;
+    font-weight:900;
+    background-color:transparent;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    padding: 3em;
+    list-style:none;
+    width:30%;
+}
+
+.logo img{
+    width:20%;
+    min-width:150px;
+}
+
+/* button containing toggle icon*/
+.toggle-wrap{
+    align-self: center;
+    padding-right: 20px;
+    height: 60px;
+    background-color:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.toggle-menu{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    position: absolute;
+    z-index:1;
+    height: 100vh;
+    text-align: center;
+    background-color: rgba(0, 153, 153, .9);
+    width: 106%;
+    transition: all .8s ease-in-out;
+    transform: translate(15%, -6%);
+}
+
+
+.show-menu{
+    transition: all .8s ease-in-out;
+    transform: translate(-93%, -6%);
+}
+
+.show-menu .toggle-wrap{
+    display:none;
+}
+
+/* toggle 3 bars icon */
+.menu-bar {
+    display: block;
+    width: 45px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 3px;
+}
+
+.menu-bar::before, .menu-bar::after {
+    content: '';
+    width: 45px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 3px;
+    position: absolute;
+}
+
+.menu-bar::before {
+    transform: translate(-22.5px, 12px);
+}
+
+.menu-bar::after {
+    transform: translate(-22.5px, -12px);
+}
+
+.hide-bars{
+    display:none;
+}
+
+
+
+/* keep bars for computer size screen, and ipad */
+.show-menu .menu-bar {
+    width: 0;
+    transition: all .3s ease-in-out;
+}
+
+.show-menu .menu-bar::before {
+    transform: rotate(45deg);
+}
+
+.show-menu .menu-bar::after {
+    transform: rotate(-45deg);
+}
+
+
+.login-card{
+   text-align:center;    
+   margin-top: 2rem;
+}
+
+.login-card img{
+    width: 150px;
+    /*height: 180px;
+    object-fit: cover;*/
+}
+
+.form-input input{
+    margin-top:10px;
+    margin-bottom:10px;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    width:100%;
+    max-width:300px;
+    border: 0.5px solid #808080;
+}
+
+.login-option{
+    display:flex;
+    flex-direction:column;
+    gap: 2em;
+    margin: 2em;
+}
+
+
+/* CAROUSEL */
+
+
+#home-carousel{
+    width:100%;
+   
+}
+
+.carousel-item{
+    display:none;
+}
+
+.carousel-item img{
+    width: 100%;
+    height:50vh;
+    object-fit: cover;
+}
+
+.active{
+    display:block;
+}
+
+.carousel-caption{
+    position: absolute;
+    top: 45%;
+    background-color:var(--gray);
+    color:white;
+    width:70%;
+    opacity:0.8;
+    padding:1em;
+}
+
+.carousel-caption h5{
+    font-weight:900;
+    font-size: 1.5em;
+    margin: 2%;
+}
+
+.carousel-caption p{
+    margin:2%;
+}
+
+.carousel-buttons{
+    display:flex;
+    justify-content: space-between;
+    transform:translateY(-600%);
+}
+
+.carousel-previous{
+    width:50px;
+    height:50px;
+    border:none;
+    background-color:transparent;
+    
+}
+
+.carousel-next{
+    width:50px;
+    height:50px;
+    border:none;
+    background-color:transparent;
+    
+}
+
+.carousel-previous img, .carousel-next img{
+    width:100%;
+}
+  
+  
+ /* HOME CONTENT */
+ 
+.home-content{
+    display:flex;
+    flex-direction:column;
+}
+
+.home-bottom{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    padding:2em;
+}
+
+
+
+.home-bottom-right{
+    width:30%;
+    min-width:200px;
+    max-width:420px;
+    border-left:1px solid var(--gray);
+    border-style:inset;
+    padding-left:2em;
+}
+
+
+.news-thumbnail img{
+    width:110px;
+    object-fit: cover;
+}
+
+      
+
+.news-item{
+    display:flex;
+    flex-direction:row;
+}
+
+.news-caption{
+    padding-left:1em;
+    padding-bottom:2em;
+}
+
+.home-bottom h5{
+    font-weight:900;
+    font-size: 1.2em;
+    margin-left: 2%;
+    margin-bottom:3%;
+    margin-top:0;
+    color:black;
+}
+
+.home-bottom p{
+    margin:2%;
+    color:black;
+}
+
+.home-bottom-left a{
+    color: var(--primary);
+    margin:2%;
+}
+
+.news-item{
+    margin:1.5em;
+    border-bottom:0.7px solid var(--gray);
+}
+
+.event-item{
+    margin:1.5em;
+}
+
+  
+ /* FOOTER */
+  
+.footer{
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: row;
+    margin-top: 4em;
+    padding-bottom:2em;
+    width: 100%;
+    column-gap: 3%;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.footer div{
+    width: 35%;
+}
+.footer img{
+    width:80px;
+}
+
+.footer-contact, footer-contact a{
+    color: white;
+    background-color: transparent;
+}
+
+.footer-link a{
+    color: white;
+    background-color: transparent;
+    text-decoration:none;
+}
+
+.footer-contact p{
+    margin:0em;
+}
+
+
+/* antip spam email */
+.arobase::before {
+    content: "\000040";
+    font-size: inherit;
+}
+.arobase span {
+	font-size: 1px;
+    font-size: 0.1px;
+    text-indent: -999px;
+    width: 1px;
+    overflow: hidden;
+}
+
+
+/* anti spam telephone */
+span[class^="zero-"]{
+	font-size: 1px;
+	font-size: 0.01rem;
+}
+span[class^="zero-"]::before{
+	font-size: initial;
+}	
+
+.zero-un::before{
+	content:"01";
+}
+.zero-six::before{
+	content:"06";
+}
+.zero-sept::before{
+	content:"07";
+}
+.zero-huit::before{
+	content:"08";
+}
+
+
+
+
+/* responsive design */
+
+
+/* tablet 768 to 1024 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {    
+
+    main{
+        margin-top:2%;
+    }
+    
+    .toggle-icon, .menu-bar{
+        display: none;
+    }
+    
+    .toggle-menu a, .toggle-menu a:visited{
+        text-decoration: none;
+        color: var(--primary);
+        font-size:1em;
+        font-weight:900;
+        background-color:transparent;
+        transition:none;
+        padding: 0em;
+        list-style:none;
+        width:100%;
+    }
+    
+    
+    .toggle-wrap{
+        align-self: center;
+        padding-right: 20px;
+    }
+        
+    .toggle-menu{
+        display:flex;
+        flex-direction:row;
+        align-items: none;
+        position: relative;
+        height: fit-content;
+        text-align: none;
+        background-color: transparent;
+        transition: none;
+        transform: none;
+        column-gap: 30px;
+    }
+    
+}
+    
+    
+    
+
+//telephone mobile under 768 */
+@media screen and (min-width: 1024px) {
+    
+}

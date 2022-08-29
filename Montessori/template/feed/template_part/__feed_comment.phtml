@@ -1,0 +1,34 @@
+<?php //include_once dirname(__DIR__) . '/class_feed.phtml' ?>
+
+<div class="feed-comment">
+    
+        <?php 
+        //var_dump($allRelatedComments);
+        foreach($allRelatedComments as $key => $comment): ?>
+           
+            
+            <p class="comment"> <?= $comment->getContent() ?></p>
+        
+            <div class="childComment">
+                
+                <?php if( $comment->hasChildren() ) : ?>
+                
+                    <?php foreach( $comment->getRelatedComments() as $relatedComment ): ?>
+                    
+                        <?php 
+                        $relatedComment->displayChild($relatedComment->getId()); ?>
+                        
+                        <p class="comment"> <?= $relatedComment->getContent() ?></p>
+                        
+                    <?php endforeach; ?>
+                
+                <?php endif; ?>
+                
+            </div>
+        
+        <?php endforeach; ?>
+    
+
+
+</div>
+

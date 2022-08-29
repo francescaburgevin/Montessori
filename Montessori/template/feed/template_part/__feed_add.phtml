@@ -1,0 +1,48 @@
+<?php include_once dirname(__DIR__) . '/faculty_class_feed.phtml'; ?>
+
+<form action="?page=feed_add" class="add-feed-form" method="POST" enctype="multipart/form-data">
+<input type="hidden" value="<?php echo $_GET['class-id'] ?>" name="class-id">
+
+    <div class="add-feed-upload-image">
+        <div>
+            <label for="upload-image">Télécharger un fichier png|jpeg|jpg : </label>
+            <input type="file" id="upload-image" name="upload-image" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <div>
+            <label for="upload-image-description" class="add-feed-upload-image-description">
+                Description de l'image
+                <img style="width:13px; vertical-align:middle" src="/Montessori/public/assets/images/extra/malentendant_pictogramer.png" alt="icon hearing impaired"></img>: 
+            </label>
+            <input type="text" name="upload-image-description" id="upload-image-description"/>
+        </div>
+    </div>
+
+<div>
+    <label for="content" class="add-feed-content"></label>
+    <textarea id="content" name="content" rows="5" cols="33">Description</textarea>
+</div>
+
+<div>
+    <label for="add-feed-list-students" class="add-feed-list-students">Qui apparaîsse ? </label>
+    <select name="add-feed-list-students" multiple="multiple" tabindex="1">
+        <option value="ambiance">Tous</option>
+            
+        <?php 
+        foreach($studentList as $key => $student): ?>
+            <option value="<?= $student->getId(); ?>"> <?= $student->getLastname() ." ".$student->getFirstname(); ?> </option>
+        <?php endforeach; ?>
+        
+    </select>
+</div>
+
+<div>
+    <label for="publish-date" class="feed-add-publish-date">Publier?</label>
+    <input type="checkbox" name="publish-date" id="publish-date">
+</div>
+
+    <input type="submit" class="btn" id="add-feed-submit-btn" value="Sauvegarder"/>
+   
+    
+</form>
+
+<button id="add-form-cancel">Annuler</button>

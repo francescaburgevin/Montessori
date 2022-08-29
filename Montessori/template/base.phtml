@@ -1,0 +1,45 @@
+<?php 
+
+if (session_status() == PHP_SESSION_NONE) 
+{
+    session_start();
+}
+
+?>
+
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog</title>
+        <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/style.css" /> 
+        <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/account.css" /> 
+        <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/feed.css" /> 
+  
+    </head>
+    
+    <body>
+      
+            <?php
+                include_once dirname(__FILE__) . "/template_part/__navbar.phtml";
+            ?>
+       
+
+        <main>
+            <?php 
+                getRouteFromUrl() 
+            ?>
+    
+        </main>
+        
+        <footer>
+            <?php
+                    include_once dirname(__FILE__) . "/template_part/__footer.phtml";
+            ?>
+        </footer>
+            
+        <script src="/Montessori/public/js/script.js"></script>
+ 
+      </body>
+</html>

@@ -1,0 +1,47 @@
+<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']!="parent")): ?>
+
+  <section class="add-feed"> 
+    <button class="btn" id="add-feed-btn">Ajouter</button>
+      <div class="add-feed-template">
+          <?php require dirname(__DIR__) . "/feed/template_part/__feed_add.phtml"; ?>
+      </div>
+  </section>
+
+
+  <section class="class-feed">
+    
+    <!-- loop through all the posts available -->
+    <?php foreach($allRelatedFeeds as $key => $feed): ?>
+          
+      <div class="feed-post">
+        <img class="class-feed-image" src="<?= $feed->getFilePathImage() ?>" alt="<?= $feed->getImageDescription() ?>"></img>
+        <p class="post-date"> <?= $feed->getPublishDate() ?></p>
+        <p> <?= $feed->getContent() ?></p>
+        
+          
+        <div>
+          <button class="btn-small btn-edit" data-id="<?= $feed->getId() ?>" name="feed_id"> Modifier </button>
+        </div>
+              
+        <!-- loop through all the comments available -->
+        <?php $allRelatedComments = $feed->getCommentsOfFeed();
+          // recupère tous les comments qui n'ont pas de commentaire parent
+
+            if( $allRelatedComments){
+                require dirname(__DIR__) . "/feed/template_part/__feed_comment.phtml"; 
+            }
+        ?>
+        
+      </div>
+      
+    <?php endforeach; ?>
+    
+  </section>
+
+
+    
+<?php endif; ?>
+
+
+
+<?php include_once dirname(__DIR__) . "/feed/template_part/__feed_edit.phtml"; ?>
