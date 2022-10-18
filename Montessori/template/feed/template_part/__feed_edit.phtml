@@ -1,7 +1,7 @@
 <div class="edit-modal-content" id="modal-edit">
       
-    <div class="edit-feed-header">
-        <h5>Modifier le feed</h5>
+    <div class="edit-feed-header bg-light">
+        <h3>Modifier le feed</h3>
     </div>
       
     <div class="edit-feed-body">
@@ -9,7 +9,7 @@
     <form action="?page=feed_edit" class="edit-feed-form" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="action-feed-id" name="feed-id" value="">
         <input type="hidden" value="<?php echo $_GET['class-id'] ?>" name="class-id">
-        
+
         <div class="edit-feed-upload-image">
             <div>
                 <img id="edit-existing-image" src=""></img>
@@ -17,30 +17,40 @@
             
             <div>
                 <label for="edit-upload-image">Remplacer l'image : </label>
-                <input type="file" id="edit-upload-image" name="edit-upload-image" accept="image/png, image/jpeg, image/jpg">
+                <input type="file" id="edit-upload-image" name="edit-upload-image" 
+                    maxlength="100" accept="image/png, image/jpeg, image/jpg">
             </div>
         
             <div>
                 <label for="edit-upload-image-description" class="edit-feed-upload-image-description">
                     Description de l'image
-                    <img style="width:13px; vertical-align:middle" src="/Montessori/public/assets/images/extra/malentendant_pictogramer.png" alt="icon hearing impaired"></img>: 
+                     <img class="hard-hearing" 
+                    title="Malentendant"
+                    src="/Montessori/public/assets/images/icon/hard_of_hearing_icon.png" 
+                    alt="icon hearing impaired">
+                </img>: 
                 </label>
-                <input type="text" name="edit-upload-image-description" id="edit-upload-image-description" value=""/>
+                <input type="text" name="edit-upload-image-description" 
+                    maxlength="75" id="edit-upload-image-description" value=""/>
             </div>
         </div>
         
         <div>
-            <label for="edit-content" class="edit-feed-content">Description</label>
-            <textarea id="edit-content" name="edit-content" rows="5" cols="33"></textarea>
+            <label for="edit-content" class="edit-feed-content align-top">Description</label>
+            <textarea id="edit-content" name="edit-content" 
+                maxlength="2000" rows="5" cols="33"></textarea>
         </div>
 
 
         <div>
-            <label for="edit-feed-list-students" class="edit-feed-list-students">Qui apparaîsse ? </label>
+            <label for="edit-feed-list-students" class="edit-feed-list-students align-top">Qui apparaîsse ? </label>
             <select class="edit-feed-list-select" id="edit-feed-list-students" name="edit-feed-list-students[]" multiple>
-
+        
+        
                 <?php foreach($studentList as $key => $student): ?>
-                    <option class="edit-option" value="<?php echo $student->getId(); ?>" > <?php echo $student->getLastname() ." ".$student->getFirstname(); ?> </option>
+                    <option class="edit-option" value="<?php echo $student->getId(); ?>" >
+                        <?php echo utf8_encode(ucfirst($student->getLastname())) ." ".utf8_encode(ucfirst($student->getFirstname())); ?> 
+                    </option>
                 <?php endforeach; ?>
                 
             </select>
@@ -49,16 +59,13 @@
 
         <div>
             <label for="edit-publish-date" class="feed-add-publish-date">Publier?</label>
-            <input type="checkbox" name="edit-publish-date" id="edit-publish-date" value="">
+            <input type="checkbox" name="edit-publish-date" id="edit-publish-date" value="1">
         </div>
     
       
       <div class="edit-feed-footer">
-        <button type="button" class="edit-form-cancel btn">Annuler</button>
-
-
-
-          <input type="submit" class="btn" id="edit-feed-submit-btn" value="Sauvegarder"/>
+        <button type="button" class="edit-form-cancel btn-attention">Annuler</button>
+        <input type="submit" class="btn" id="edit-feed-submit-btn" value="Sauvegarder"/>
 
       </div>
     </form>

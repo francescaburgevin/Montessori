@@ -16,8 +16,7 @@ class Role {
     /**
      * Constructeur $User
      */
-    public function __construct(){
-    }
+    public function __construct(){}
 
     /**
      * Get $id
@@ -40,6 +39,7 @@ class Role {
     {
         $this->id = $id;
     }
+
 
     /**
      * Get $name

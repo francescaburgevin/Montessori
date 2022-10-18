@@ -35,7 +35,7 @@ class Comment {
      private int $fk_class_feed_id;
      
      /**
-     * @var int $fk_comment_id
+     * @var ?int $fk_comment_id
      */
      private ?int $fk_comment_id;
      
@@ -44,8 +44,7 @@ class Comment {
     /**
      * Constructeur $User
      */
-    public function __construct(){
-    }
+    public function __construct(){}
 
     /**
     * Get $id
@@ -69,6 +68,7 @@ class Comment {
         $this->id = $id;
     }
     
+    
     /**
     * Get $edit_date
     *
@@ -77,7 +77,7 @@ class Comment {
     public function getEditDate(): string
     {
         $date = new DateTime($this->edit_date);        
-        return $date->format('d-m-Y H:i');
+        return $date->format('Y-m-d H:i:s');
     }
     
     /**
@@ -96,24 +96,32 @@ class Comment {
     /**
     * Get $publish_date
     *
-    * @return  string
+    * @return  ?string
     */
     public function getPublishDate(): ?string
     {
-        $date = new DateTime($this->publish_date);        
-        return $date->format('d-m-Y');
+        if(is_null($this->publish_date)){
+            return $this->publish_date;
+        } else {
+            $date = new DateTime($this->publish_date);        
+            return $date->format('Y-m-d');
+        }
     }
     
     /**
     * Set $publish_date
     *
-    * @param  string  $publish_date
+    * @param  ?string  $publish_date
     *
     * @return  self
     */
-    public function setPublishDate(string $publish_date): void
+    public function setPublishDate(?string $publish_date)
     {
-        $this->name = $publish_date;
+        if(is_null($publish_date)){
+            $this->publish_date = NULL;
+        } else {
+            $this->publish_date = $publish_date;
+        }
     }
     
     
@@ -191,7 +199,7 @@ class Comment {
     *
     * @return  self
     */
-    public function getParentCommentId(): int
+    public function getParentCommentId(): ?int
     {
         return $this->fk_comment_id;
     }
@@ -199,11 +207,11 @@ class Comment {
     /**
      * Set $fk_comment_id
      *
-     * @param  int  $fk_comment_id  
+     * @param  ?int  $fk_comment_id  
      *
      * @return  self
      */
-    public function setParentCommentId(int $fk_comment_id): void
+    public function setParentCommentId(?int $fk_comment_id): void
     {
        $this->fk_comment_id = $fk_comment_id;
     }
@@ -216,44 +224,60 @@ class Comment {
      */
     public function getRelatedComments()
     {
+        $relatedComments=[];
         
         $commentRepository = new CommentRepository();
         $relatedComments = $commentRepository->getChildByParent($this->id);
-        //var_dump($relatedComments);
-        if(!$relatedComments){ //var_dump("there are no related comments"); 
-        return null; };
+        
+        if(!$relatedComments)
+        { 
+            return $relatedComments=[]; 
+        };
+        
         return $relatedComments;
     }
-
+    
 
     /**
+     * Get count of children comments
      * @return  bool 
      */
     public function hasChildren(): bool
     {
         $hasChildren = $this->getRelatedComments();
         if(!$hasChildren){return false; }
-        return count($hasChildren);
+        
+        $objectArray = [];
+        
+        foreach($this as $key => $value) 
+        {
+            $objectArray[$key] = $value;
+        }
+        return count($objectArray);
     }
     
     
     /**
+     * Get all comments of child comment
      * @return  Comment and page location 
      */
-     public function displayChild(int $childComment)
+    public function displayChild(int $childComment)
     {
         $commentRepository = new CommentRepository();
         $allRelatedComments = $commentRepository->getById($childComment);
-        //var_dump($allRelatedComments);
         include_once dirname(__DIR__,2).'/template/feed/template_part/__feed_comment.phtml';
     }
     
     
+    /**
+     * Get comment's User
+     * @return  User 
+     */
     public function getCommentUser()
     {
         $userRepository = new UserRepository;
         $user = $userRepository->retrieve($this->fk_user_id);
         return $user;
     }
-   
+
 }

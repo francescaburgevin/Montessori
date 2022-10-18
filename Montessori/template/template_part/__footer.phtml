@@ -1,33 +1,33 @@
-<section class="footer">
- 
-  <div class="footer-link">
-      <p><a href="mailto:contact@3wa.fr">Opportunités</a></p>
-      <p><a href="mailto:contact@3wa.fr">Opportunités</a></p>
-      <p>©2022 Labelle Sites</p>
+<div class="footer-contact">
+  
+  <div class="contact">
+    <img src="/Montessori/public/assets/images/logo/montessori_puzzle_color_bg_transparent_LR.png" 
+        alt="puzzle icon" title="Montessori Les Loulous Futés">
+    </img>
   </div>
-  
-  <div class="footer-contact">
-    <img src="/Montessori/public/assets/images/logo/montessori_puzzle_color_bg_transparent_LR.png" alt="puzzle icon"></img>
-    <h3>Montessori Les Loulous Futés</h3>
-    <p>30 rue du chapeau rouge</p>
-    <p>33 000 Bordeaux</p>
-    <p><span class="zero-un">[ANTISPAM]</span> 02 03 04 05</p>
-
-    <p>
-      <a href="mailto:contact(arobase)3wa.fr">
-	    contact<span class="arobase"><span>(arobase)</span></span>3wa.fr
-      </a>
-    </p>
-  
-  </div>
-  
-
-  <div class="footer-newsletter">
-   <form>
-    <label for="newsletter" class="newsletter"></label>
-    <input type="text" placeholder="Votre adresse mail" name="newsletter" id="newsletter"/>
-   </form>
-   
+  <div>
+      <h3>Montessori Les Loulous Futés</h3>
+      <p>30 rue du chapeau rouge</p>
+      <p>33 000 Bordeaux</p>
+      <p>+33 (0)5 02 03 04 05</p>
+      <p>
+        <a href="mailto:contact@3wa.fr" title="Envoyer un mail à contact@3wa.fr">Contacter par mail</a>
+      </p>
   </div>
 
-</section> 
+</div>
+
+<form class="footer-newsletter" method="post" action="/Montessori/?page=home">
+    <label for="newsletter_subscriber" class="newsletter">Inscrivez-vous à notre newsletter !</label>
+    <input type="email" placeholder="Votre adresse mail ici" name="newsletter_subscriber" 
+      pattern="^[^@]+@[^@]+\.[^@]+$" minlength="5" id="newsletter_subscriber"/>
+    <button type="submit" class="btn-white" id="newsletter-submit-button">S'abonner</button>
+</form>
+
+
+<div class="footer-link">
+    <p><a title="Réjoindre notre équipe" href="mailto:contact@3wa.fr">Opportunités</a></p>
+    <p><a title="Cookies" href="#">Politique des cookies</a></p>
+    <p><a title="Mention légale" href="#">Mention légale</a></p>
+    <p>©2022 Labelle Sites</p>
+</div>

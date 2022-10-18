@@ -1,32 +1,41 @@
+<h1>Montessori Les Loulous Futés login au compte</h1>
+
 <section class="login-card">
     
-  <img src="/Montessori/public/assets/images/icon/login_icon.png" alt="login icon"></img>
+  <img title="Espace Privé" src="/Montessori/public/assets/images/icon/login_icon.png" alt="login icon"></img>
   
-  <form method="POST">
+  <!-- login form -->  
+  <form class="login-form" method="POST">
       
-    <div class="error-login-message">
+    <div class="text-attention">
       <p><?php echo $message?></p>
     </div>
     
+    <!-- username -->
     <div class="form-input">  
       <label for="username" class="login-label"></label>
-      <input type="text" placeholder="Username" name="username" id="username"/>
+      <input type="text" placeholder="Username" name="username" 
+        id="username" required minlength="4" maxlength="20"/>
     </div>
     
+    <!-- password -->    
     <div class="form-input">
       <label for="password" class="login-label"></label>
-      <input type="text" placeholder="Mot de passe" name="password" id="password"/>
+      <input type="text" placeholder="Mot de passe" name="password" 
+      id="password" required minlength="4" maxlength="20"/>
     </div>
     
-    <div class="option-password">
-      <a href="mailto:francesca.nadel@3wa.io">Mot de passe oublié?</a>
+    <button type="submit" class="btn" id="login-submit">Se Connecter</button>
+  
+    <!--forgot password-->
+    <div>
+      <a class="text-attention" href="mailto:francesca.nadel@3wa.io">Mot de passe oublié?</a>
     </div>
 
-    <button type="submit" class="btn" id="login-submit">Se Connecter</button>
         
-    <div class="text-center">
-      <p>L'accès a cet espace nécessite une inscription par la direction.</p> 
-      <a href="mailto:francesca.nadel@3wa.io">Demandez votre inscription 
+    <div class="login-ask-registration">
+      <p>L'accès à cet espace nécessite une inscription par la direction.</p> 
+      <a title="Envoyer mail à la Direction" href="mailto:francesca.nadel@3wa.io">Demandez votre inscription 
       <strong style="color:var(--secondary)">ICI</strong></a>
     </div>
 

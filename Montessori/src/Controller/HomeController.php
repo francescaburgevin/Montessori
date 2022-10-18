@@ -5,8 +5,8 @@ require_once dirname(__DIR__, 2) . "/lib/Controller/AbstractController.php";
 class HomeController extends AbstractController
 {
 
-    /**
-     * @return string utilise la methode renderView() définie dans la classe abstrait parent abstractController 
+    /*  index
+     *  @return string => template 
      */
     public function index(): string
     {

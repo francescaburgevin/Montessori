@@ -1,21 +1,21 @@
 <div class="delete-feed-content">
       
-  <div class="delete-feed-header">
-    <h5>Confirmer suppression</h5>
+  <div class="delete-feed-header text-attention">
+    <h3>ATTENTION</h3>
   </div>
   
   <div class="delete-feed-body">
-    <p>Validez-vous la suppression ?</p>
+    <p>Validez-vous la suppression de ce feed ?</p>
     <p>Une fois supprimé, il n'est pas récupérable.</p>
   </div>
   
   <div class="delete-feed-footer">
-    <button type="button" id="delete-feed-close" class="btn-small">Annuler</button>
+    <button type="button" id="delete-feed-close" class="btn">Annuler</button>
     
     <form method="GET">
       <input type="hidden" name="page" value="feed_delete"/>
       <input type="hidden" id="action-delete-feed-id" name="feed-id" value="">
-      <input type="submit" class="btn-small" value="Supprimer"/>
+      <input type="submit" class="btn-attention" value="Supprimer"/>
     </form>
   </div>
   

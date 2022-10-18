@@ -1,0 +1,114 @@
+<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']==="admin")): ?>
+
+<!-- add new user form -->
+<form method="POST" action="?page=user_add" class="form-add-user" 
+  id="form-add-user" enctype="multipart/form-data">
+
+<div class="form-label-input">  
+  <!-- username -->
+  <div>    
+    <label for="user_username">Identifiant</label>
+    <input type="text" name="user_username" id="user_username" 
+      minlength="5" maxlength="60" class="custom-input" placeholder="" required 
+      onChange="usernameUnique();" />
+    <input type="hidden" id="action-feed-id" name="feed-id" value="">
+    <input type="hidden" value="33" name="class-id">
+    <div class="username-message">
+      <small>(entre 5 et 60 charactères)</small>
+      <small id="error_username" class="text-attention input-error hide">Le caractère est inacceptable.</small>
+      <small id="error_username_exists" class="text-attention input-error hide">L'identifiant existe.</small>
+    </div>
+  </div> 
+  <!-- password -->
+  <div>
+    <label for="user_password">Mot de passe</label> 
+    <input type="password" name="user_password" id="user_password" 
+    minlength="8" maxlength="30" class="custom-input" placeholder="" required/>
+    
+    <div class="password-display">
+      <div class="hide-password password-eye" id="hide-show-img"></div>
+      <input class="margin-zero" type="checkbox" onclick="showPassword()"> 
+      <p id="hide-show-text">Visible</p>
+    </div>
+    <div class="password-message">
+      <small>(mot de passe suggéré)</small>
+      <small id="error_password" class="text-attention input-error hide">Le caractère est inacceptable.</small>
+    </div>
+    
+  </div>
+</div>
+
+<div class="form-label-input">
+  <!-- firstname -->
+  <div class="form-add-firstname">
+    <label for="user_firstname">Prénom</label> 
+    <input type="text" name="user_firstname" id="user_firstname" minlength="2" 
+      maxlength="100" class="custom-input" placeholder="" required/>
+    <small id="error_firstname" class="text-attention input-error hide">Le caractère est inacceptable.</small>
+  </div>
+  <!-- lastname -->  
+  <div>
+    <label for="user_lastname">Nom</label> 
+    <input type="text" name="user_lastname" id="user_lastname" minlength="2" 
+      maxlength="100" class="custom-input" placeholder="" required/>
+    <small id="error_lastname" class="text-attention input-error hide">Le caractère est inacceptable.</small>
+  </div>
+</div>
+
+<div class="form-label-input">
+  <div class="form-add-tel">
+    <label for="user_telephone">Téléphone</label> 
+    <input type="text" name="user_telephone" maxlength="10" id="user_telephone" 
+      pattern="[0]{1}[1-9]{1}[0-9]{8}" class="custom-input" placeholder="" required/>
+    <small>(ex. 0612345678)</small>
+  </div>
+  <div>
+    <label for="user_email">Email</label> 
+    <input type="email" name="user_email" id="user_email" class="custom-input" 
+    pattern="^[^@]+@[^@]+\.[^@]+$" minlength="5" maxlength="100" class="custom-input" placeholder="" required/>
+    <small id="error_email" class="text-attention input-error hide">Le caractère est inacceptable.</small>
+  </div>
+</div>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']==="admin")): ?>
+<div class="form-label-input">
+  <div>
+    <label for="user_account_active">Activer le compte ?</label> 
+    <input type="checkbox" name="user_account_active" id="user_account_active" value=1> 
+  </div>
+  <div>
+    <label for="user_role">Quel rôle ?</label> 
+    <select name="user_role" id="user_role">
+      <option value=1 selected>parent</option>
+      <option value=2 >personnel</option>
+      <option value=3 >administrateur</option>
+    </select>
+  </div>
+  <div>
+    <label for="write_delete_able">Permission de modifier ?</label> 
+    <input type="checkbox" name="write_delete_able" id="write_delete_able" value=1> 
+  </div>
+</div>
+
+<div class="form-label-input">
+  <div>
+    <label for="user_child">Enfant(s) ?</label> 
+    <select name="user_child[]" id="user_child" multiple="multiple" tabindex="1">
+      <?php 
+      foreach($studentList as $key => $student): ?>
+          <option value="<?= $student->getId(); ?>"> 
+            <?= utf8_encode(ucfirst($student->getLastname())) ." ". utf8_encode(ucfirst($student->getFirstname())); ?> 
+          </option>
+      <?php endforeach; ?>
+    </select>
+  </div>
+
+<?php endif; ?>
+
+  <div class="form-label-input">
+    <input type="submit" class="btn-white" id="add-user-submit-btn" value="Sauvegarder"/>
+  </div>
+</div>    
+
+</form>
