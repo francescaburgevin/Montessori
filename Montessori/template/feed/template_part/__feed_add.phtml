@@ -6,43 +6,61 @@
     <div class="add-feed-upload-image">
         <div>
             <label for="upload-image">Télécharger un fichier png|jpeg|jpg : </label>
-            <input type="file" id="upload-image" name="upload-image" accept="image/png, image/jpeg, image/jpg">
+            <input type="file" id="upload-image" name="upload-image" maxlength="100"
+                accept="image/png, image/jpeg, image/jpg" value=""
+                onChange='imageUploaded();' >
         </div>
         <div>
             <label for="upload-image-description" class="add-feed-upload-image-description">
                 Description de l'image
-                <img style="width:13px; vertical-align:middle" src="/Montessori/public/assets/images/extra/malentendant_pictogramer.png" alt="icon hearing impaired"></img>: 
+                <img class="hard-hearing" 
+                    title="Malentendant"
+                    src="/Montessori/public/assets/images/icon/hard_of_hearing_icon.png" 
+                    alt="icon hearing impaired">
+                </img>: 
             </label>
-            <input type="text" name="upload-image-description" id="upload-image-description"/>
+            <input type="text" name="upload-image-description" id="upload-image-description"
+                maxlength="75" onChange='checkImgDescription();'/>
         </div>
     </div>
-
-<div>
-    <label for="content" class="add-feed-content">Contenu :</label>
-    <textarea id="content" name="content" rows="5" cols="33"></textarea>
-</div>
-
-<div>
-    <label for="add-feed-list-students" class="add-feed-list-students">Qui apparaîsse ? </label>
-    <select name="add-feed-list-students[]" multiple="multiple" tabindex="1">
-        <option value="ambiance">Tous</option>
+    
+    <div class="flex-col">
+        <div>
+        <label for="content" class="add-feed-content">Contenu :</label>
+        <textarea id="content" name="content" rows="5" cols="33" 
+            maxlength="2000" onChange="checkForContent();"></textarea>
+        </div>
+        <small id="error_feed_content" class="text-attention input-error hide">
+            Ces caractères sont inacceptables: < > ( ) [ ] ; \\ # § ° % ` /* == -- + ||</small>
+    </div>
+    
+    <div>
+        <label for="add-feed-list-students" class="add-feed-list-students">Qui apparaîsse ? 
+            <span class="text-small text-attention">(champ obligatoire)</span></label>
+ 
+        <select name="add-feed-list-students[]" id="add-feed-list-students" multiple="multiple" 
+            tabindex="1" onChange="checkStudentSelected();">
+            <?php 
+            foreach($studentList as $key => $student): ?>
+                <option value="<?= $student->getId(); ?>"> 
+                    <?= utf8_encode(ucfirst($student->getLastname())) ." ". utf8_encode(ucfirst($student->getFirstname())); ?> 
+                </option>
+            <?php endforeach; ?>
             
-        <?php 
-        foreach($studentList as $key => $student): ?>
-            <option value="<?= $student->getId(); ?>"> <?= $student->getLastname() ." ".$student->getFirstname(); ?> </option>
-        <?php endforeach; ?>
-        
-    </select>
-</div>
+        </select>
+    </div>
+    
+    <div>
+        <label for="publish-date" class="feed-add-publish-date">Publier ?</label>
+        <input type="checkbox" name="publish-date" id="publish-date">
+        <p class="small-italic">Le feed apparaîtra uniquement si cette case est cochée.</p>
+    </div>
 
-<div>
-    <label for="publish-date" class="feed-add-publish-date">Publier ?</label>
-    <input type="checkbox" name="publish-date" id="publish-date">
-</div>
-
-    <input type="submit" class="btn" id="add-feed-submit-btn" value="Sauvegarder"/>
-   
+    <div class="add-feed-btn">
+        <input type="submit" class="btn" id="add-feed-submit-btn" value="Sauvegarder" disabled="true"/>
+        <input type="reset" class="btn-attention" id="add-feed-reset-btn" value="Réinitialiser"/>
+    </div>
     
 </form>
 
-<button id="add-form-cancel">Annuler</button>
+<button class="btn-minimal" id="add-form-cancel">Annuler</button>

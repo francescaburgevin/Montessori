@@ -33,8 +33,7 @@ class Classroom {
     /**
      * Constructeur $Classroom
      */
-    public function __construct(){
-    }
+    public function __construct(){}
 
     /**
      * Get $id
@@ -57,6 +56,7 @@ class Classroom {
     {
         $this->id = $id;
     }
+
 
     /**
      * Get $name
@@ -81,6 +81,7 @@ class Classroom {
 
     }
     
+    
     /**
      * Get $file_path_image
      *
@@ -101,7 +102,6 @@ class Classroom {
     public function setFilePathImage(string $file_path_image): void
     {
         $this->file_path_image = $file_path_image;
-
     }
 
 
@@ -123,15 +123,15 @@ class Classroom {
      * @return  self
      */
     public function setEmail(string $email): void
-   {
+    {
        $this->email = $email;
-   }
+    }
    
 
    /**
      * Get $school_year
      * 
-     * @return string
+     * @return ?string
      */
     public function getSchoolYear(): ?string
     {
@@ -139,8 +139,6 @@ class Classroom {
         $nextYear= intval($date->format("Y"))+1;
         return $date->format("Y-".$nextYear);
     }
-    
-    
     
     /**
      * SET $school_year
@@ -152,6 +150,4 @@ class Classroom {
         $this->school_year = $school_year;
     }
 
-
-   
 }

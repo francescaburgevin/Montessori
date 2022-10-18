@@ -1,19 +1,22 @@
-<section class="home-content">
-
-<div class="home-top">
-
-    <?php include_once "__carrousel.phtml"; ?>
-
-</div>
-
-<div class="home-bottom">
+<section>
+    <!-- carrousel-->
+    <?php include_once "__carousel.phtml"; ?>
     
-    <div class="home-bottom-left">
-        <?php include_once "__news.phtml"; ?>
+    <!-- invitation to apply -->
+    <?php include_once "__apply.phtml"; ?>    
+    
+    
+    <div class="home-news-events">
+        <!-- news -->
+        <div class="home-news-section">
+            <?php include_once "__news.phtml"; ?>
+        </div>
+        
+        <!-- events -->
+        <div class="home-events-section">
+            <?php include_once "__event.phtml"; ?>       
+        </div>
     </div>
     
-    <div class="home-bottom-right">
-        <?php include_once "__event.phtml"; ?>       
-    </div>
     
-</div>
+</section>

@@ -1,8 +1,15 @@
-
+/* 
+*  Google Font : LATO 
+*  weight : 100, 300, 400, 700, 900
+*/
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-:root{
-  --primary: black;
+/*
+*  CSS custom properties
+*/
+:root
+{
+  --primary: rgb(0, 152, 152);
   --secondary: #FF7595;
   --turquoise: #80E0E0;
   --gray: #808080;
@@ -10,153 +17,356 @@
   --error: #FF0000; 
 }
 
-.bg-light{
+/*
+*  Custom background/font color : light and dark
+*/
+.bg-light
+{
     background-color: white;
     color: var(--primary);
 }
-
-.bg-dark{
+.bg-dark
+{
     background-color: var(--primary);
     color:white;
 }
-
-header, main{
+/*
+* Custom text properties
+*/
+.text-left
+{
+    text-align:left;
+}
+.text-small
+{
+    font-size: 0.8em;
+    font-weight: 300;
+}
+.text-small-italic
+{
+    color:var(--gray);
+    font-size:0.7em;
+    font-weight:300;
+    text-decoration:italic;
+    margin:0;
+}
+.text-attention
+{
+    color:var(--secondary);
+}
+.text-fade
+{
+    color:var(--gray);
+}
+.small-italic
+{
+    margin:0;
+    font-size:0.5;
+    font-style:italic;
+    font-weight:100;
+}
+small
+{
+    padding-left:1em;
+    font-size: 0.7em;
+    font-weight: 300;
+}
+.flex-row
+{
+    display:flex;
+    flex-direction:row;
+}
+.flex-col
+{
+    display:flex;
+    flex-direction:column;
+}
+.align-top
+{
+    vertical-align:top;
+}
+/*
+*  Body 
+*/
+body
+{
+    margin:0;
+    padding:0;
+    box-sizing: content-box;
+    width: 100%;
     font-family: "Lato", sans-serif;
-    font-size : 14px;
     font-weight: 400;
     color: var(--primary);
     background-color: #FFFFFF;
 }
 
-body{
-    margin:0;
-    padding:0;
-    box-sizing: content-box;
-    width: 100%;
-}
-
+/*
+*  Main 
+*/
 main{
     margin-right:auto;
     margin-left:auto;
+    min-height:60vh;
 }
 
-.btn{
+/*
+*  Custom buttons : sizes, colors
+*/
+.btn
+{
     margin:0.5em;
-    padding: 1em;
+    padding: 0.5em;
+    background-color:transparent;
     font-weight: 700;
+    color:var(--primary);
     border: 2px solid var(--primary);
     border-radius: 5px;
-    background-color:transparent;
+    transition-duration: 0.3s;
+    cursor:pointer;
 }
-.btn-small{
+.btn:hover, .btn:active
+{
+    background-color: var(--primary);
+    font-weight: 900;
+    color: white;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-attention
+{
+    margin:0.5em;
     padding: 0.5em;
+    background-color:transparent;
+    color:var(--secondary);
     font-weight: 700;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-attention:hover, .btn-attention:active
+{
+    margin:0.5em;
+    padding: 0.5em;
+    background-color:var(--secondary);
+    color:white;
+    font-weight: 700;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-white
+{
+    margin:0.5em;
+    padding: 0.5em;
+    background-color:transparent;
+    font-weight: 700;
+    color:white;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-white:hover, .btn-white:active
+{
+    margin:0.5em;
+    padding: 0.5em;
+    background-color:white;
+    font-weight: 700;
+    color:var(--primary);
+    border: 2px solid white;
+    border-radius: 5px;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-small
+{
+    padding: 0.3em;
+    font-weight: 400;
+    font-size:0.7em;
+    color: var(--primary);
     border: 1px solid var(--primary);
     border-radius: 5px;
+    transition-duration: 0.3s;
+    background-color:transparent;
+    cursor:pointer;
+}
+.btn-small:hover
+{
+    padding: 0.2em;
+    margin:-0.2em;
+    background-color: var(--primary);
+    font-weight: 900;
+    color: white;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+.btn-minimal
+{
+    background-color: transparent;
+    color: var(--gray);
+    font-weight: 400;
+    font-size:0.7em;
+    font-style : italic;
+    border: none;
+    cursor:pointer;
+    transition-duration: 0.3s;
+}
+.btn-minimal:hover
+{
+    background-color: transparent;
+    padding-left:0.2em;
+    font-weight:700;
+    color:var(--primary);
+    border: none;
+    transition-duration: 0.3s;
+    cursor:pointer;
 }
 
-.btn:hover{
-    padding: 1.2em;
-    font-weight: 900;
-    background-color: var(--primary);
-    color: white;
-    /* ??? what does transition do*/
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-.btn-small:hover{
-    padding: 0.5em;
-    font-weight: 900;
-    background-color: var(--primary);
-    color: white;
+/*
+*  Hard of hearing image
+*/
+.hard-hearing
+{
+    width:13px; 
+    vertical-align:middle;
 }
 
-.btn:active{
-    padding: 1.2em;
-    font-weight: 900;
-    background-color: var(--primary);
-    color: white;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-
-main a, a:visited{
+/*
+*  Custom A Links 
+*/
+main a, a:visited
+{
     text-align:center;
     text-decoration: none;
     color: var(--primary);
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+main a:hover
+{
+    color:var(--secondary);
+    transition-duration: 0.3s;
+    cursor:pointer;
+}
+
+/*
+* H1
+*/
+h1
+{
+    display:none;
+}
+
+/*
+*  Custom Input properties
+*/
+input
+{
+    border: 1px solid var(--gray);
+}
+input:invalid
+{
+    border: 2px dashed var(--secondary);
+}
+.custom-input:placeholder-shown 
+{
+    border:none;
+    border-bottom: 1px solid var(--gray)
+}
+input:focus
+{
+    border: 2px solid var(--primary);
+    outline: none;
 }
 
 
-
-/* NAVIGATION BAR */
-.navigation{
-    height:30%;
+/* 
+*  NAVIGATION BAR
+*/
+/* align logo and toggle lines in navigation bar */
+.navigation
+{
     display:flex;
     justify-content:space-between;
-       
 }
-
-.toggle-menu a, a:visited{
+/* logo dimensions in navigation bar */
+.navigation img
+{
+    width: 30%;
+    min-width: 200px;
+}
+/* navigation bar menu links */
+.toggle-menu a, .toggle-menu a:visited
+{
     text-decoration: none;
     color: white;
     font-size:3em;
     font-weight:900;
     background-color:transparent;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-    padding: 3em;
+    padding: 1em;
     list-style:none;
-    width:30%;
 }
 
-.logo img{
-    width:20%;
-    min-width:150px;
-}
 
-/* button containing toggle icon*/
-.toggle-wrap{
+/* activating zone containing toggle 3-bars icon */
+.toggle-wrap
+{
     align-self: center;
     padding-right: 20px;
     height: 60px;
     background-color:transparent;
     border:none;
     cursor:pointer;
-
 }
-
-.toggle-menu{
+/* navigation menu list */
+.toggle-menu
+{
     display:flex;
     flex-direction:column;
     align-items: center;
     position: fixed;
     z-index:1;
-    height: 100vh;
+    height: 105vh;
     text-align: center;
-    background-color: rgba(0, 153, 153, .9);
-    width: 106%;
+    background-color: rgba(0, 152, 152, .9);
+    width: 160%;
     transition: all .8s ease-in-out;
-    transform: translate(15%, -6%);
+    transform: translate(20%, -8%);
     overflow-x: hidden;
 }
-
-
-.show-menu{
-    transition: all .8s ease-in-out;
-    transform: translate(-93%, -6%);
+.close-toggle-menu
+{
+    font-size: large;
+    color: white;
+    text-align: right;
+    padding-left: 40%;
+    padding-top: 2%;
 }
-
-.show-menu .toggle-wrap{
+/* display menu, smooth in and out */
+.show-menu
+{
+    transition: all .8s ease-in-out;
+    transform: translate(-77%, -8%);
+}
+/* hide menu */
+.show-menu .toggle-wrap
+{
     display:none;
 }
 
-/* toggle 3 bars icon */
-.menu-bar {
+/* toggle 3-bars icon */
+.menu-bar 
+{
     display: block;
     width: 45px;
     height: 4px;
     background-color: var(--primary);
     border-radius: 3px;
 }
-
+/* toggle 3-bars icon appearance before and after */
 .menu-bar::before, .menu-bar::after {
     content: '';
     width: 45px;
@@ -165,54 +375,58 @@ main a, a:visited{
     border-radius: 3px;
     position: absolute;
 }
-
-.menu-bar::before {
+/* 3 bars icon position before */
+.menu-bar::before
+{
     transform: translate(-22.5px, 12px);
 }
-
-.menu-bar::after {
+/* 3 bars icon position after */
+.menu-bar::after
+{
     transform: translate(-22.5px, -12px);
 }
-
-.hide-bars{
+/* hide 3 bars icon */
+.hide-bars
+{
     display:none;
 }
-
-
-
-/* keep bars for computer size screen, and ipad */
-.show-menu .menu-bar {
-    width: 0;
-    transition: all .3s ease-in-out;
-}
-
 .show-menu .menu-bar::before {
     transform: rotate(45deg);
 }
 
+/* DELETE DELETE DELETE
+.show-menu .menu-bar {
+    width: 0;
+    transition: all .3s ease-in-out;
+}
 .show-menu .menu-bar::after {
     transform: rotate(-45deg);
 }
+*/
 
 
-/* LOGIN */
-
-.login-card{
-   text-align:center;    
-   margin-top: 2rem;
+/* 
+*  PAGE USER_CONNECTION | log-in 
+*/
+/* log-in section */
+.login-card
+{
+    margin-top: 2rem;
+    padding:1em;
+    text-align:center;    
 }
-
-.login-card img{
+.login-form
+{
+    background-color: white;
+}
+/* login user icon */
+.login-card img
+{
     width: 150px;
-    /*height: 180px;
-    object-fit: cover;*/
 }
-
-.login-card p{
-    margin-bottom:0;
-}
-
-.form-input input{
+/* custom input properties for login form*/
+.form-input input
+{
     margin-top:10px;
     margin-bottom:10px;
     padding-top: 0.8em;
@@ -221,128 +435,117 @@ main a, a:visited{
     max-width:300px;
     border: 0.5px solid #808080;
 }
-
-.login-option{
+/* border of login input fields */
+.form-input input:focus
+{
+    border: 2px solid var(--primary);
+    outline: none;
+}
+/* text space under input fields*/
+.login-option
+{
     display:flex;
     flex-direction:column;
     gap: 2em;
     margin: 2em;
 }
-
-.error-login-message{
-    color:var(--secondary);
+/* text zone */
+.login-ask-registration
+{
+    padding:0, 1em, 0, 1em;
 }
+ 
 
-/* CAROUSEL */
+/* 
+*  PAGE HOME_BASE 
+*  __carrousel, __news, __event
+*/
 
-
-#home-carousel{
-    width:100%;
-}
-
-.carousel-item{
+/* 
+*  CAROUSEL
+*/
+/* hide carousel item */
+.carousel-item
+{
     display:none;
 }
-
-.carousel-item img{
-    width: 100%;
-    height:50vh;
-    object-fit: cover;
-}
-
-.active{
+/* display carousel item*/
+.active
+{
     display:block;
 }
-
-.carousel-caption{
+/* carousel section */
+#home-carousel
+{
+  margin-bottom: 14vh;
+}
+/* carousel item image */
+.carousel-item img
+{
+    width: 100%;
+    height:85vh;
+    object-fit: cover;
+}
+/* carousel text area */
+.carousel-caption
+{
     position: absolute;
-    top: 45%;
+    top: 55%;
     background-color:var(--gray);
     color:white;
-    width:70%;
+    width:80%;
     opacity:0.8;
     padding:1em;
 }
-
-.carousel-caption h5{
+/* carousel text area title h5 */
+.carousel-caption h5
+{
     font-weight:900;
-    font-size: 1.5em;
+    font-size: 2.5em;
     margin: 2%;
 }
-
-.carousel-caption p{
+/* carousel text area p */
+.carousel-caption p
+{
     margin:2%;
+    font-size:1.2em;
 }
-
-.carousel-buttons{
+/* carousel buttons section */
+.carousel-buttons
+{
     display:flex;
     justify-content: space-between;
-    transform:translateY(-600%);
+    transform:translateY(-725%);
 }
-
-.carousel-previous{
+/* carousel button space */
+.carousel-previous, .carousel-next
+{
     width:50px;
     height:50px;
     border:none;
     background-color:transparent;
 }
-
-.carousel-next{
-    width:50px;
-    height:50px;
-    border:none;
-    background-color:transparent;
-}
-
-.carousel-previous img, .carousel-next img{
+/* carousel button image within space */
+.carousel-buttons img
+{
     width:100%;
 }
-  
-  
- /* HOME CONTENT */
- 
-.home-content{
-    display:flex;
-    flex-direction:column;
-}
 
-.home-bottom{
+/* 
+*  NEWS & EVENT
+*/
+/* home page bottom section with news and event*/
+.home-news-events
+{
     display:flex;
-    flex-direction:row;
-    justify-content:center;
+    flex-direction:column-reverse;
+    row-gap: 3em;
     padding:2em;
+    align-items: center;
 }
-
-
-
-.home-bottom-right{
-    width:30%;
-    min-width:200px;
-    max-width:420px;
-    border-left:1px solid var(--gray);
-    border-style:inset;
-    padding-left:2em;
-}
-
-
-.news-thumbnail img{
-    width:110px;
-    object-fit: cover;
-}
-
-      
-
-.news-item{
-    display:flex;
-    flex-direction:row;
-}
-
-.news-caption{
-    padding-left:1em;
-    padding-bottom:2em;
-}
-
-.home-bottom h5{
+/* home page bottom section h5 (title) property */
+.home-news-events h5
+{
     font-weight:900;
     font-size: 1.2em;
     margin-left: 2%;
@@ -350,137 +553,782 @@ main a, a:visited{
     margin-top:0;
     color:black;
 }
-
-.home-bottom p{
+/* bottom section p property */
+.home-news-events p
+{
     margin:2%;
     color:black;
 }
-
-.home-bottom-left a{
+/* 
+*  news section 
+*/
+/* a link in news section*/
+.home-news-section a
+{
     color: var(--primary);
     margin:2%;
 }
-
-.news-item{
+/* image in news section */
+.news-thumbnail img
+{
+    width:100%;
+    object-fit: cover;
+}
+/* individual news item */
+.news-item
+{
+    display:flex;
+    flex-direction:column;
     margin:1.5em;
     border-bottom:0.7px solid var(--gray);
 }
-
-.event-item{
-    margin:1.5em;
+/* content of news-item : title and resumé */
+.news-teaser
+{
+    padding:1em;
+}
+/* 
+*  event section 
+*/
+.home-events-section
+{
+    min-width:200px;
+    max-width:60%;
+}
+/* list of events */
+.event-list
+{
+    display:flex;
+    flex-direction:column;
+}
+/* individual event item */
+.event-item
+{
+    max-width:100%;
+    padding-bottom: 2em;
+    border-left: 4px solid;
+    border-image: linear-gradient(1deg, white, var(--primary), white, #FF7595) 1;
 }
 
+/* 
+*  apply section 
+*/
+/* section height */
+.apply-height
+{
+    height: 80vh; 
+}
+/* white card with text */
+.apply-card
+{
+    background-color: white;
+    padding: 2em;
+    position: absolute;
+}
+/* rollover image effect*/
+.apply-parallax
+{
+    background-image: url('/Montessori/public/assets/images/classroom_student/top_view_montessori_learning_tools.jpg');
+    height: 50%; 
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
   
- /* FOOTER */
-  
-.footer{
-    background-color: var(--primary);
+
+/*
+* PAGE ACCOUNT_ADMINISTRATOR
+*/
+/* add new user section */
+.add-new-user, .add-new-event, .add-new-news, .add-new-carousel
+{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.future-account-options
+{
+    text-align:center;
+    margin: 5px 0 5px 0;
+}
+.display-add-user
+{
+    align-self:center;
+}
+/* form to add new user */
+.form-add-user
+{
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+    min-width:240px;
+    margin-left: auto;
+    margin-right: auto;
+    row-gap:1em;
+}  
+.username-message, .password-message
+{
+    display:flex;
+    flex-direction:column;
+    padding-bottom: 3px;
+}
+.form-add-tel, form-label-input
+{
+    display: flex;
+    flex-direction: column;
+}
+.form-add-user label
+{
+    vertical-align: top;
+    margin-right:1em;
+}
+.form-add-user input
+{
+    width:100%;
+}
+.input-error
+{
+    background-color: var(--secondary);
+    color: white;
+    padding: 0 1em 0 1em;
+    font-weight: bold;
+}
+.form-add-firstname label
+{
+    margin-right:2.1em;
+}
+.form-add-tel label
+{
+    margin-right:1.1em;
+}
+#add-user-btn, #add-event-btn, #add-news-btn, #add-carousel-btn, #add-user-submit-btn
+{
+    align-self:center;
+}
+.account-class-list
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+/*
+*  Password section properties on __user_add
+*/
+/* eye image size */
+.password-eye
+{
+    width:20px;
+    height:20px;
+}
+/* zone under input field*/
+.password-display
+{
+    display:flex;
+    align-items:center;
+}
+/* checkbox hide show password*/
+.password-display input
+{
+    width:20px;
+}
+/* checkbox text */
+.password-display p
+{
+    margin:0;
+}
+/* hide image */
+.hide-password
+{
+    background-image:url('/Montessori/public/assets/images/icon/hide_attention_icon.png');   
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+/* show image */
+.show-password
+{
+    background-image:url('/Montessori/public/assets/images/icon/show_attention_icon.png');   
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+
+
+/*
+* PAGE ACCOUNT_PARENT, ACCOUNT_FACULTY, ACCOUNT_ADMIN
+*/
+/* user page banner image for all account types */
+.account-banner
+{
+    height: 20vh;
+    background-position: center;
+    background-size: cover;
+    background-image:url('/Montessori/public/assets/images/classroom_student/top_view_children_building_blocks_mr_k_chernaya.jpg');
+}
+.account-parent-name
+{
+    margin-left: 13%;
+}
+/* user account class or child list */
+.account-child-list
+{
+    margin-bottom: 2em;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+}
+/* user account links */
+.account-child-list a:visited, .account-class-list a:visited
+{
+    color:var(--primary);
+}
+/* user account child/class avatar */
+.account-child-img
+{
+    max-width: 300px;
+    max-height: 300px;
+    margin-top: 2em;
+}
+/* user account child/class avatar */
+.account-class-img
+{
+    max-width: 25%;
+    margin-top: 2em;
+}
+/* user account h3 properties */
+.account-child-list h3
+{
+    margin:0;
+    font-size:2em;
+}
+/* user account p properties */
+.account-child-list p
+{
+    margin:0;
+    color: var(--secondary);
+}
+
+   
+
+/*
+*  PAGE FACULTY_CLASS_FEED
+*  __feed_add
+*/
+/* add new feed section */
+.add-feed
+{
+    margin-bottom: 2em;
+    text-align:center;
+}
+/* form to add new feed */
+.add-feed-form
+{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2em;
+    padding: 1em;
+}
+/* add new feed content text */
+.add-feed-content
+{
+    vertical-align: top;
+}
+/* hide add new feed template, edit modal and delete modal */
+.add-feed-template, .add-form-cancel, .edit-modal-content, .delete-feed-content
+{
+    display:none;
+}
+/* add new feed upload image section */
+.add-feed-upload-image
+{
+    display:flex;
+    flex-direction: column;
+}
+#upload-image
+{
+    max-width:300px;
+}
+/* add new feed student list */
+.add-feed-list-students
+{
+    vertical-align: top;
+}
+#add-feed-submit-btn
+{
+    width:fit-content;
+}
+.add-feed-btn
+{
+    display:flex;
+}
+.delete-feed-footer
+{
+    display: flex;
+    justify-content:space-evenly;
+}
+
+/*
+*  PAGE FACULTY_CLASS_FEED & PARENT_CLASS_FEED
+*  __feed_comment, __feed_edit, __feed_delete
+*/
+/* class feed section, contains feed posts + scroll bar */
+.feed-section
+{
+    background-color:var(--primary);
+    padding: 3em 0 3em 0;
+}
+.class-feed
+{
+    width:80%;
+    min-width:310px;
+    max-height:95vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow:scroll;
+    overflow-x:hidden;
+    scrollbar-color: var(--turquoise);
+    scrollbar-width: 0.5em;
+    margin-bottom: 2em;
+}
+/* feed post properties */
+.feed-post
+{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin-bottom: 1em;
+    padding: 1em;
+    width:88%;
+    border-radius: 11px;
+    background-color: white;
+}
+
+.feed-post-content
+{
+    display:flex;
+    flex-direction:column;
+}
+/* feed post image */
+.class-feed-image
+{
+    width: 100%;
+    max-height: 400px;
+    height: fit-content;
+    object-fit: contain;   
+    align-self: center;
+}
+/* feed post date text */
+.post-date
+{
+    font-size:0.7em;
+    font-style: italic;
+}
+/* comment section for parent and child */
+.parent-comment-card
+{
+    display:flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: space-between;
+    column-gap: 1em;
+    padding-top: 1em;
+    border-top: 1px solid var(--turquoise);
+    margin-top: 1em;
+}
+.child-comment-card
+{
+    display:flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: space-between;
+    column-gap: 1em;
+}
+/* child comment properties */
+.child-comment
+{
+    padding-right:1em;
+    margin:0;
+    align-items:flex-start;
+}
+
+.child-comment-block
+{
+    background-color: var(--gray);
+    color: white;
+    border-radius: 0 25px 25px 25px;
+    padding: 0.5em;
+    margin-left: 8px;
+    transform: translateY(4px);
+}
+/* section containing feed & comment response + publish checkbox */
+.parent-child-options, .child-comment-options
+{
+    min-width:115px;
+}
+/* area containing name and comment*/
+.parent-comment
+{
+    align-items:flex-start;
+}
+/* area with parent comment, next to name */
+.comment-block
+{
+    padding: 0.6em;
+    border-radius: 0 25px 25px 25px;
+    margin-left: 8px;
+    transform: translateY(4px);
+}
+/* feed comment publish checkbox text */
+.feed-comment label
+{
+    background-color: transparent;
+    color: var(--gray);
+    text-decoration: italic;
+    font-weight: 400;
+    font-size:0.7em;   
+}
+/* parent comment publish checkbox */
+.parent-comment-options form
+{
+    width: max-content;
+}
+/* child comment section if child exists */
+.related-comment
+{
+    margin-left: 5px;
+}
+.save-comment
+{
+    margin: 5px 0 13px 0;
+}
+
+/*
+*  PAGE FACULTY_CLASS_FEED
+*/
+/* section containing modify + delete buttons */
+.feed-post-btn
+{
     display: flex;
     flex-direction: row;
-    margin-top: 4em;
-    padding-bottom:2em;
-    width: 100%;
-    column-gap: 3%;
-    align-items: center;
+    justify-content: flex-end;
+    column-gap: 2em;
+}
+/* contains list of students in feed */
+.feed-post-wrapper
+{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  align-self: center;
+}
+/* list of students in feed */
+.student-in-feed p
+{
+    margin:0;
+    color: var(--secondary);
+    margin-right: 1em;
+    font-size:0.8em;
+    font-weight: 300;
+}
+
+/*
+*  PAGE __FEED_EDIT, __FEED_DELETE
+*/
+/* edit modal and delete modal content */
+.edit-modal-content, .delete-feed-content
+{
+    position: fixed;
+    background-color: #fefefe;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 1s;
+    text-align:center;
+    top: 8%;
+    width:100%;
+}
+
+/*
+*  PAGE __FEED_EDIT 
+*/
+.edit-feed-header{
+    padding:0.3em;
+}
+#edit-existing-image
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+.edit-feed-footer
+{
+  display: flex;
+  justify-content: center;
+}
+.edit-feed-form
+{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+/* edit form modal animation in out */
+/* Add Animation */
+@keyframes animatetop
+{
+  from {top: -300px; opacity: 0}
+  to {top: 8%; opacity: 1}
+}
+
+
+/*
+*  Custom display properties
+*/
+/* display */
+.show
+{
+    display:block;
+}
+/* hide */
+.hide
+{
+    display:none;
+}
+
+
+
+ /* 
+ *  FOOTER
+ */
+footer
+{
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    justify-content: space-around;
+    align-items: center;
+    padding-top: 2em;
+    padding-bottom: 4em;
+    row-gap: 1em;
 }
-
-.footer div{
-    width: 35%;
+/* logo in footer */
+footer img
+{
+    width:20%;
 }
-.footer img{
-    width:80px;
-}
-
-.footer-contact, footer-contact a{
+/* footer text */
+.footer-contact, .footer-contact a, footer label
+{
     color: white;
     background-color: transparent;
 }
-
-.footer-link a{
+.footer-link a
+{
     color: white;
     background-color: transparent;
     text-decoration:none;
 }
-
-.footer-contact p{
+.footer-contact h3
+{
     margin:0em;
 }
-
-
-/* antip spam email */
-.arobase::before {
-    content: "\000040";
-    font-size: inherit;
+.footer-contact p
+{
+    margin:0em;
 }
-.arobase span {
-	font-size: 1px;
-    font-size: 0.1px;
-    text-indent: -999px;
-    width: 1px;
-    overflow: hidden;
+.footer-newsletter
+{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
 }
 
+    
+    
 
-/* anti spam telephone */
-span[class^="zero-"]{
-	font-size: 1px;
-	font-size: 0.01rem;
-}
-span[class^="zero-"]::before{
-	font-size: initial;
-}	
-
-.zero-un::before{
-	content:"01";
-}
-.zero-six::before{
-	content:"06";
-}
-.zero-sept::before{
-	content:"07";
-}
-.zero-huit::before{
-	content:"08";
-}
-
-
-
-
-/* responsive design */
-
-
-/* tablet 768 to 1024 */
-@media screen and (min-width: 768px) and (max-width: 1024px) {    
-
-    main{
+/*                   
+**                   **
+** RESPONSIVE DESGIN **
+**                   **
+*/
+/* tablet|iPad screen 768 to 1024 */
+@media screen and (min-width: 768px) and (max-width: 1024px)
+{    
+    main
+    {
         margin-top:2%;
     }
     
-    .toggle-icon, .menu-bar{
+    /* responsive design ipad screen navigation side bar */    
+    .toggle-icon, .menu-bar
+    {
         display: none;
     }
-    
-    .toggle-menu a, .toggle-menu a:visited{
+    .toggle-menu a, .toggle-menu a:visited
+    {
         text-decoration: none;
         color: var(--primary);
-        font-size:1em;
+        font-size:1.4em;
         font-weight:900;
         background-color:transparent;
         transition:none;
-        padding: 0em;
+        padding: 0.2em;
         list-style:none;
         width:100%;
     }
-    
-    
-    .toggle-wrap{
+    .toggle-menu a:hover
+    {
+        font-size:1.6em;
+        padding: 0em;
+    }
+    .toggle-wrap
+    {
         align-self: center;
         padding-right: 20px;
     }
-        
-    .toggle-menu{
+    .toggle-menu
+    {
+        flex-direction:row;
+        align-items: none;
+        position: relative;
+        height: fit-content;
+        text-align: none;
+        background-color: transparent;
+        transition: none;
+        transform: none;
+        column-gap: 30px;
+        width:max-content;
+    }
+    .close-toggle-menu
+    {
+        display:none;
+    }
+    
+    /* responsive design ipad screen home news, events */
+    .home-news-events
+    {
+        flex-direction:row;
+        align-items: flex-start;
+        row-gap: 0;
+    }
+    .news-thumbnail
+    {
+        width:55%;
+    }
+    .news-item
+    {
+        flex-direction:row;
+    }
+    .news-teaser
+    {
+        padding-bottom:2em;
+    }
+    .home-events-section
+    {
+        text-align:left;
+        padding-left:2em;
+    }
+    .home-news-events
+    {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .event-list
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .event-item
+    {
+        margin:1.5em;
+    }
+    
+    /* responsive design ipad screen home carousel */
+    .carousel-item img
+    {
+        height:50vh;
+    }
+    .carousel-caption
+    {
+        top: 45%;
+    }
+    .carousel-buttons
+    {
+        transform:translateY(-600%);
+    }
+    
+    /* responsive design ipad screen class feed*/
+    .class-feed
+    {
+        max-width:600px;
+    }
+    /* responsive design ipad screen footer*/
+    footer
+    {
+        flex-direction: row;
+        margin-top: 4em;
+        padding:0;
+        padding-bottom:2em;
+        width: 100%;
+        column-gap: 3%;
+        justify-content: space-around;
+    }
+    footer img
+    {
+        width:50%;    
+    }
+    .footer-contact, .footer-newsletter, .footer-link
+    {
+        width:33%;
+    }   
+}
+
+
+/* RESPONSIVE DESIGN */
+/* computer screen over 1024 */
+@media screen and (min-width: 1024px)
+{    
+    main
+    {
+        margin-top:2%;
+    }
+    
+    /* responsive design computer screen navigation side menu */
+    .toggle-icon, .menu-bar
+    {
+        display: none;
+    }
+    .toggle-menu a, .toggle-menu a:visited
+    {
+        text-decoration: none;
+        color: var(--primary);
+        font-size:1.4em;
+        font-weight:900;
+        background-color:transparent;
+        transition:none;
+        padding: 0.2em;
+        list-style:none;
+        width:100%;
+    }
+    .toggle-menu a:hover
+    {
+        font-size:1.6em;
+        padding: 0em;
+    }
+
+    .toggle-wrap
+    {
+        align-self: center;
+        padding-right: 20px;
+    }
+    .toggle-menu
+    {
         display:flex;
         flex-direction:row;
         align-items: none;
@@ -491,14 +1339,86 @@ span[class^="zero-"]::before{
         transition: none;
         transform: none;
         column-gap: 30px;
+        width:max-content;
+    }
+    .close-toggle-menu
+    {
+        display:none;
     }
     
-}
     
+    /* responsive design computer screen home news, events*/
+    .home-news-events
+    {
+        flex-direction:row;
+        align-items: flex-start;
+        row-gap: 0;
+    }
+    .news-thumbnail img
+    {
+        max-width: 380px;
+    }
+    .news-item
+    {
+        flex-direction:row;
+    }
+    .news-teaser
+    {
+        padding-bottom:2em;
+    }
+    .home-events-section
+    {
+        width:30%;
+        text-align:left;
+        padding-left:2em;
+    }
     
+    /* responsive design computer screen home carousel */
+    .carousel-caption
+    {
+        top: 80%;
+    }
+    .carousel-buttons
+    {
+        transform:translateY(-600%);
+    }
     
+    /* responsive design computer screen account page */
+    .account-child-list, .account-class-list 
+    {
+        flex-direction:row;
+        justify-content: space-evenly;
+    }
+    
+    /* responsive design computer screen class feed */
+    .class-feed
+    {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        max-width:600px;
+    }
+    
+    /* responsive design computer screen footer*/
+    footer
+    {
+        flex-direction: row;
+        margin-top: 4em;
+        padding:0;
+        padding-bottom:2em;
+        width: 100%;
+        column-gap: 3%;
+        justify-content: space-around;
+        padding-top: 25px;
+    }
+    .footer-contact, .footer-newsletter, .footer-link
+    {
+        width:33%;
+    }
+    .footer-newsletter button
+    {
+        max-width: max-content;
+    }
 
-//telephone mobile under 768 */
-@media screen and (min-width: 1024px) {
-    
+   
 }

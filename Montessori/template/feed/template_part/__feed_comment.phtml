@@ -1,54 +1,146 @@
-<?php //include_once dirname(__DIR__) . '/class_feed.phtml' ?>
-
+<!-- comment section of feed -->
 <div class="feed-comment">
     
-        <?php 
-        //var_dump($allRelatedComments);
-        foreach($allRelatedComments as $key => $comment): ?>
-            
-            <div class="parent-comment-card">
-                <div>
-                    <p class="parent-comment"> <?= $comment->getCommentUser()->getFirstname() ?>: <?= $comment->getContent() ?></p>
-                </div>
-                
-                <div class="parent-comment-options">
-                    <label for="parent-comment-publish">Publier</label>
-                    <input type="checkbox" class="btn-edit-publish-comment" data-comment_id="<?= $comment->getId() ?>"/>
-                    <button class="parent-comment-delete" data-comment_id="<?= $comment->getId() ?>">Supprimer</button>
-                </div>
-            </div>
+    <!-- loop through array containing parent comments / first level of comments-->
+    <?php foreach($allRelatedComments as $key => $comment): ?>
+    
+    <!-- if the parent is valid, then display -->
+    <?php if( $comment->getPublishDate()!==null 
+                || $comment->getUserId()==$_SESSION['user_id'] 
+                || $_SESSION['user_role']!="parent"): ?>
+    
+    <!-- parent comment section -->
+    <div>       
         
-            <div class="related-comment">
+        <!-- contains parent comment and create child comment = response to parent -->
+        <div class="parent-comment-card">
+        
+            <div class="flex-col">
+                <!-- display user name and comment content -->
+                <div class="parent-comment flex-row">
+                    <p> <?= utf8_encode($comment->getCommentUser()->getFirstname()) ?> </p> 
+                    <p class="comment-block bg-dark"> <?= $comment->getContent() ?> </p>
+                </div>
                 
-                <?php if( $comment->hasChildren() ) : ?>
-                
-                    <?php foreach( $comment->getRelatedComments() as $relatedComment ): ?>
-                    
-                        <?php 
-                        $relatedComment->displayChild($relatedComment->getId()); ?>
-                        
-                        <div class="child-comment-card">
-                            <div>
-                                <p class="child-comment"> <?= $comment->getCommentUser()->getFirstname() ?>: <?= $relatedComment->getContent() ?></p>
-                            </div>
-                            
-                            <div class="child-comment-options">
-                                <label for="child-comment-publish">Publier</label>
-                                <input type="checkbox" class="btn-edit-publish-comment" data-comment_id="<?= $relatedComment->getId() ?>"/>
-                                <button class="child-comment-delete" data-comment_id="<?= $relatedComment->getId() ?>">Supprimer</button>
-                            </div>
-                        </div>
-                        
-                        
-                    <?php endforeach; ?>
-                
+                <?php if($comment->getPublishDate()==null):?>
+                <p class="text-small-italic text-attention">Commentaire en cours de validation.</p>
+                <?php endif; ?>
+            </div>
+
+            
+            <!-- create child comment, response to parent -->
+            <div class="add-child-comment hide" id="<?= $comment->getId() ?>" data-comment_id="<?= $comment->getId() ?>">
+            
+                <!-- form to add child comment -->
+                <form action="?page=comment_add" method="POST" enctype="multipart/form-data" id="<?= $comment->getId() ?>">
+                <input type="hidden" name="parent_comment_id" value="<?=$comment->getId() ?>" >
+                <input type="hidden" name="feed-id" value="<?=$comment->getClassFeedId() ?>" >
+                <input type="hidden" name="user-id" value="<?=$_SESSION['user_id'] ?>">
+                <input type="hidden" name="class-id" value="<?=$_GET["class-id"] ?>">
+                <?php if(isset($_GET["student-id"])): ?>
+                    <input type="hidden" name="student-id" value="<?= intval($_GET["student-id"]) ?>">
                 <?php endif; ?>
                 
+                    <input type="text" name="add-comment-content" maxlength="150" placeholder="Ecrire votre commentaire ici">
+                    <button type="submit" class="btn-small save-comment">Sauvegarder</button>
+                
+                </form>
+                <!-- end create child comment-->
+            
             </div>
         
-        <?php endforeach; ?>
+        <!-- end parent comment card -->
+        </div>  
+        
+        <!-- publish checkbox section -->
+        <?php if($_SESSION['user_role']!="parent" && ($_SESSION['user_permission'])): ?>
+            <form method='post' action="?page=comment_edit_publish" enctype="multipart/form-data" >
+                <input type="hidden" name="comment_id" value="<?php echo $comment->getId() ?>" >
+                <input type="hidden" name="class-id" value="<?php echo $_GET['class-id'] ?>">
+                
+                <label for="parent-comment-publish">Publier</label>
+                <input type="checkbox" class="box-publish-comment" 
+                    name="publish-checkbox"
+                    data-comment_id="<?= $comment->getId() ?>" 
+                    onChange="submit();"
+                    <?php if(!is_null($comment->getPublishDate())){echo 'checked';} ?> 
+                />
+            </form>
+        <?php endif; ?>
+        
+        <!-- if parent comment published, allow respond button to create child comment -->
+        <?php if($comment->getPublishDate()!==null): ?>
+            <div class="parent-comment-options">
+                <button title="répondre au commentaire" class="btn-minimal parent-comment-respond" 
+                data-comment_id="<?= $comment->getId() ?>">Répondre à ce commentaire</button>
+            </div>
+        <?php endif; ?>
+        
+    <!-- end parent comment section -->
+    </div>
     
+    <!-- section display child comments -->
+    <div class="related-comment">
+    
+        <?php if( $comment->hasChildren() ) : ?>
+        
+        <?php foreach( $comment->getRelatedComments() as $relatedComment ): ?>
+        
+        <!-- continue to loop through comments -->
+        <?php $relatedComment->displayChild($relatedComment->getId()); ?>
+        
+        <!-- if valid, display -->
+        <?php if($relatedComment->getPublishDate()!==null 
+                    || $relatedComment->getUserId()===$_SESSION['user_id'] 
+                    || $_SESSION['user_role']!=="parent"): ?>
+            <div class="child-comment-card">
+        
+                <div class="child-comment flex-row">
+                    <p class="text-fade"><?=  utf8_encode($relatedComment->getCommentUser()->getFirstname()) ?></p>
+                    <p class="child-comment-block"><?= ($relatedComment->getContent()) ?></p>
+                </div>
+    
+                <?php if($relatedComment->getPublishDate()==null):?>
+                    <p class="text-small-italic text-attention">Commentaire en cours de validation.</p>
+                <?php endif; ?>
+        
+            <!-- end child comment card -->
+            </div>
+        <!-- end control if valid -->
+        <?php endif; ?>
+        
+        <?php if($_SESSION['user_role']!="parent" && ($_SESSION['user_permission'])): ?>
+            <div class="child-comment-options">
+                <form method='post' action="?page=comment_edit_publish" enctype="multipart/form-data" >
+                <input type="hidden" name="comment_id" value="<?php echo $relatedComment->getId() ?>" >
+                <input type="hidden" name="class-id" value="<?php echo $_GET['class-id'] ?>">
+                
+                    <label for="parent-comment-publish">Publier</label>
+                    <input type="checkbox" class="box-publish-comment" 
+                        name="publish-checkbox"
+                        data-comment_id="<?= $relatedComment->getId() ?>" 
+                        onChange="submit();"
+                        <?php if(!is_null($relatedComment->getPublishDate())){echo 'checked';} ?> 
+                    />
 
+                </form>
+            </div>
+        <?php endif; ?>
+        
+        <!-- end array of child comments -->
+        <?php endforeach; ?>
+        
+        <!-- end if parent has child comments-->
+        <?php endif; ?>
+        
+    <!-- end of related comment -->
+    </div>
+    
+    <!-- end if parent is valid -->
+    <?php endif; ?>
+    
+    <!-- end loop -->
+    <?php endforeach; ?>
 
+<!-- end comment section -->
 </div>
-

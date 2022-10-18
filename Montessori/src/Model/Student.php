@@ -37,8 +37,7 @@ class Student {
     /**
      * Constructeur $Student
      */
-    public function __construct(){
-    }
+    public function __construct(){}
 
     /**
      * Get $id
@@ -62,6 +61,7 @@ class Student {
         $this->id = $id;
     }
 
+
     /**
      * Get $firstname
      *
@@ -82,8 +82,8 @@ class Student {
     public function setFirstname(string $firstname): void
     {
         $this->firstname = $firstname;
-
     }
+    
     
     /**
      * Get $lastname
@@ -105,7 +105,6 @@ class Student {
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
-
     }
 
 
@@ -135,7 +134,7 @@ class Student {
    /**
      * Get $fk_classroom_id
      *
-     * @return  string
+     * @return  int
      */
     public function getClassroomId(): int
     {
@@ -146,15 +145,16 @@ class Student {
     /**
     * Get $classroom
     *
-    * @return  string
+    * @return  Classroom
     */
     public function getClassroom(): Classroom
     {
-    return $this->classroom;
+        return $this->classroom;
     }
 
+
     /**
-    * Set $role
+    * Set $classroom
     *
     * @param  Classroom  $classroom
     *

@@ -1,13 +1,13 @@
-<section class="account-default">
-</section>
+<section class="account-banner"></section>
 
 <section class="account-class-list">
   
   <?php foreach($classes as $key => $class): ?>
   
-    <a href="index.php?page=faculty_class_feed&class-id=<?= $class->getId() ?>">
-      <img class="account-class-img" src="<?= $class->getFilePathImage() ?>" alt="class avatar"></img>
-      <h3> <?= $class->getName() ?></h3>
+    <a title="Lien vers le feed" href="index.php?page=faculty_class_feed&class-id=<?= $class->getId() ?>">
+      <img title="Fruit de la classe" class="account-class-img" src="<?= $class->getFilePathImage() ?>" 
+        alt="class avatar"></img>
+      <h3> <?= utf8_encode(ucfirst($class->getName())) ?></h3>
       <p> <?= $class->getSchoolYear() ?></p>
     </a>
 

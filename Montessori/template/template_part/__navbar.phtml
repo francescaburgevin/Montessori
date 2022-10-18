@@ -1,29 +1,33 @@
-<header>
-  <nav class="navigation">
-  
-    <div class="logo">
-      <a href="/Montessori/index.php?page=home">
-        <img src="/Montessori/public/assets/images/logo/montessori_logo_color_bg_white_rc.svg"></img>
-      </a>
-    </div>
+<nav class="navigation">
+
+  <!-- navigation bar logo -->  
+  <div class="naviation-logo">
+    <a href="/Montessori/index.php?page=home" title="Montessori Les Loulous Futés">
+      <img src="/Montessori/public/assets/images/logo/montessori_logo_color_bg_white_rc.svg" 
+        alt="The official logo of Montessori Les Loulous Futés"></img>
+    </a>
+  </div>
     
-    <button class="toggle-wrap">
+  <!-- active button zone -->
+  <button class="toggle-wrap">
+  
+    <!-- 3-bars icon -->
+    <span class="menu-bar"></span>
+    
+    <span class="toggle-menu">
+      <p class="close-toggle-menu">fermer</p>
       
-     
-        <span class="menu-bar"></span>
-
-      <span class="toggle-menu">
-
-
+      <!-- if on home page, hide from menu list -->  
       <?php
         if($_GET['page']!='home')
         {
           echo "<a href='/Montessori/?page=home'>Accueil</a>";
         }
       ?>
-  
+    
+      <!-- if signed in, go to appropriate account page -->  
       <?php
-        if( ($_GET['page']!='parent') && ($_GET['page']!='faculty') )
+        if( ($_GET['page']!='parent') && ($_GET['page']!='faculty') &&  ($_GET['page']!='admin') )
         {
           if(isset($_SESSION["user_role"]))
           {
@@ -35,25 +39,28 @@
             {
               echo "<a href='/Montessori/?page=faculty'>Compte</a>";
             }
+            if(($_SESSION["user_role"])=="admin")
+            {
+              echo "<a href='/Montessori/?page=admin'>Compte</a>";
+            }
           }
         }
-        ?>
-        
-        <?php
-          if(isset($_SESSION["login"]))
-          {
-            echo "<a href='/Montessori/?page=user_deconnection'>Déconnecter</a>";
-          } else {
-            echo "<a href='/Montessori/?page=user_connection'>Connecter</a>";
-          }
-        ?>
-      </span> 
-    
-
-       </button>
+      ?>
        
-  </nav>
-
-</header>
-        
-        
+      <!-- logged in, show disconnect / logged out, show connect -->     
+      <?php
+      if( $_GET['page']!='user_connection')
+      {
+        if(isset($_SESSION["login"]))
+        {
+          echo "<a href='/Montessori/?page=user_deconnection'>Déconnecter</a>";
+        } else {
+          echo "<a href='/Montessori/?page=user_connection'>Connecter</a>";
+        }
+      }
+      ?>
+    </span> 
+      
+  </button>
+       
+</nav>

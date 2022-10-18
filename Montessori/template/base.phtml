@@ -1,41 +1,41 @@
 <?php 
-
-if (session_status() == PHP_SESSION_NONE) 
-{
-    session_start();
-}
-
+    if (session_status() == PHP_SESSION_NONE) 
+    {
+        session_start();
+    }
 ?>
 
 <!doctype html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Ecole Montessori Les Loulous Futés de 
+            Bordeaux. Une éducation respectant le rythme d’apprentissage de l’enfant. 
+            Contactez-nous pour une visite !">
+        <meta name="keywords" content="ecole, montessori, loulous, futés, education, maternelle, Bordeaux, proche">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blog</title>
+        <title>Montessori | Les Loulous Futés</title>
         <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/style.css" /> 
-        <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/account.css" /> 
-        <link rel="stylesheet" type="text/css" href="/Montessori/public/assets/css/feed.css" /> 
-  
     </head>
     
     <body>
-      
+        
+        <header>
             <?php
                 include_once dirname(__FILE__) . "/template_part/__navbar.phtml";
             ?>
-       
-
+        </header>
+        
         <main>
+  
             <?php 
                 getRouteFromUrl() 
             ?>
-    
         </main>
         
-        <footer>
+        <footer class="bg-dark">
             <?php
-                    include_once dirname(__FILE__) . "/template_part/__footer.phtml";
+                include_once dirname(__FILE__) . "/template_part/__footer.phtml";
             ?>
         </footer>
             

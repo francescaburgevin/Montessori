@@ -2,53 +2,137 @@
 
 require_once dirname(__DIR__, 2) . "/lib/Controller/AbstractController.php";
 require_once dirname(__DIR__, 2) . "/src/Repository/ClassFeedRepository.php";
+require_once dirname(__DIR__, 2) . "/src/Repository/ClassroomRepository.php";
+require_once dirname(__DIR__, 2) . "/src/Repository/UserRepository.php";
 require_once dirname(__DIR__, 2) . "/src/Repository/StudentRepository.php";
 require_once dirname(__DIR__, 2) . "/src/service/Service.php";
 require_once dirname(__DIR__, 2) . "/src/Model/ClassFeed.php";
 
 class ClassFeedController extends AbstractController
 {
-    
-
-    /**
-     * @return string utilise la methode renderView() définie dans la classe abstrait parent abstractController 
+    /*   parentFeed
+     *   @return string => template + class feeds relative to student
      */
-    public function feed(): string
+    public function parentFeed(): string
     {
-        //controler si student id = parent id 
-        //$allChildFeeds = "";
-        $classFeedRepository = new ClassFeedRepository();
-        $allRelatedFeeds = $classFeedRepository->getFeedByStudent($_GET['student-id']);
+        if (!isset($_SESSION['login']))
+        {
+            header("Location: ?page=user_connection");
+        }
         
-        return $this->renderView("/template/feed/class_feed.phtml", [
-            'allRelatedFeeds'=>$allRelatedFeeds
+        /* if parent (user) and child (student) are related, retrieve feeds */
+        $userRepository = new UserRepository();
+        
+        if($userRepository->related($_SESSION['user_id'], intval($_GET['student-id'])))
+        {
+            /* parent and child are related, retrieve feeds relative to student */
+            $classFeedRepository = new ClassFeedRepository();
+
+            /* retrieve classroom id */
+            $studentRepo = new StudentRepository();
+            $student = $studentRepo->getStudentById($_GET['student-id']);
+
+            /* retrieve all feeds related to class and to student*/
+            $allRelatedFeeds = $classFeedRepository->getStudentFeeds($_GET['student-id'], $student->getClassroomId());
+            
+            /* if there are 0 feeds, create empty array */
+            if($allRelatedFeeds === null) {$allRelatedFeeds=[]; };
+            
+            /* if class feed contains one object, create array */
+            if(gettype($allRelatedFeeds) == "object")
+            {
+                $object=$allRelatedFeeds;
+                $allRelatedFeeds=[];
+                array_push($allRelatedFeeds, $object);
+            }
+            
+            /* delete all recurring instances */
+            $oldId = 0;
+            foreach($allRelatedFeeds as $key => $feed)
+            {
+                $newId = $feed->getId();
+                if($oldId === $newId)
+                {
+                    array_splice($allRelatedFeeds, $key, 1);
+                } else {
+                    $oldId=$newId;
+                }
+            }
+            
+            /* link student(s) to each feed */
+            foreach($allRelatedFeeds as $key => $feed)
+            {
+                $feed->getLinkedStudents(); 
+            }
+        
+            return $this->renderView("/template/feed/parent_class_feed.phtml", [
+                'allRelatedFeeds'=>$allRelatedFeeds
             ]);
+        } else {
+                header("Location: ?page=home");
+        }
+        
     }
     
-    
-     /**
-     * @return string utilise la methode renderView() définie dans la classe abstrait parent abstractController 
+    /*   facultyFeed
+     *   @return string => template + a class's feeds and its student list
      */
     public function facultyFeed(): string
     {
-        
-        $classFeedRepository = new ClassFeedRepository();
-        $allRelatedFeeds = $classFeedRepository->getFeedByClassId($_GET['class-id']);
-        
-        $studentRepository = new StudentRepository;
-        $studentList = $studentRepository->getStudentsByClassId($_GET['class-id']);
-        
-        foreach($allRelatedFeeds as $key => $feed){
-            $feed->getLinkedStudents(); 
+        if (!isset($_SESSION['login']))
+        {
+            header("Location: ?page=user_connection");
         }
         
-        return $this->renderView("/template/feed/faculty_class_feed.phtml", [
-            'studentList'=>$studentList,
-            'allRelatedFeeds'=>$allRelatedFeeds,
-            ]);
+        if (isset($_SESSION['login']) && isset($_GET['class-id']) )
+        {
+            $classroomRepository = new ClassroomRepository();
+            if(
+                ($classroomRepository->confirmUserClass($_GET['class-id'], $_SESSION['user_id']))
+                ||
+                ($_SESSION['user_role']==="admin")
+            )
+            {
+                /* retrieve related feeds by classroom id */
+                $classFeedRepository = new ClassFeedRepository();
+                $allRelatedFeeds = $classFeedRepository->getFeedByClassId($_GET['class-id']);
+                
+                /* retrieve list of students by classroom id */
+                $studentRepository = new StudentRepository;
+                $studentList = $studentRepository->getStudentsByClassId($_GET['class-id']);
+                
+                /* if class feed does not yet exist = empty */
+                if($allRelatedFeeds === null) {$allRelatedFeeds=[]; };
+                
+                /* if class feed contains one object */
+                if(gettype($allRelatedFeeds) == "object")
+                {
+                    $object=$allRelatedFeeds;
+                    $allRelatedFeeds=[];
+                    array_push($allRelatedFeeds, $object);
+                }
+            
+                /* link student(s) to each feed */
+                foreach($allRelatedFeeds as $key => $feed)
+                {
+                    $feed->getLinkedStudents(); 
+                }
+        
+                return $this->renderView("/template/feed/faculty_class_feed.phtml", [
+                    'studentList'=>$studentList,
+                    'allRelatedFeeds'=>$allRelatedFeeds,
+                    ]);
+            } else {
+                header("Location: ?page=home");
+            }
+        } else {
+            header("Location: ?page=home");
+        }
     }
     
-    
+    /*   addFeed
+     *   @return string => update class feed
+     */
     public function addFeed()
     {
         if (!isset($_SESSION['login']))
@@ -59,7 +143,6 @@ class ClassFeedController extends AbstractController
         if (Service::checkIfUserIsConnected())
         {
                 if(
-
                     (
                         ($imagePath = Service::moveFile($_FILES["upload-image"]))
                         && (strlen($uploadImageDescription=trim($_POST["upload-image-description"])))
@@ -73,7 +156,6 @@ class ClassFeedController extends AbstractController
                         && ($classId = ($_POST["class-id"]))
                     )
             ){
-                
                 $newFeed = new ClassFeed();
                 $newFeed->setClassroomId($classId);
                 
@@ -81,24 +163,26 @@ class ClassFeedController extends AbstractController
                 {
                     $newFeed->setFilePathImage($imagePath);
                     $newFeed->setImageDescription($uploadImageDescription);
+                } else {
+                    $newFeed->setFilePathImage(null);
+                    $newFeed->setImageDescription(null);
                 }
                 
                 if($_POST["content"])
                 {
                     $newFeed->setContent($_POST["content"]);
-                }
+                } else 
+                    {
+                        $newFeed->setContent("");
+                    }
                 
-             
-                
-                if(isset($_POST["publish_date"]) && ($_POST["publish-date"])!=null)
+                if(isset($_POST["publish-date"]) && ($_POST["publish-date"])==="on")
                 {
-                    $publishDate = new DateTime($_POST["publish-date"]);
+                    $publishDate = new DateTime("now");
                     $newFeed->setPublishDate($publishDate->format("Y-m-d"));
                 } else {
                     $newFeed->setPublishDate(null);
                 }
-                    
-                
                 
                 $editDate = "";
                 $editDate = new DateTime("now");
@@ -114,33 +198,27 @@ class ClassFeedController extends AbstractController
                 {
                     $classFeedRepository->insertStudentFeed($feedId->getId(), intval($studentId));
                 }
-            
             }
             
            header("Location: ?page=faculty_class_feed&class-id=".$_POST['class-id']);
         }
     
         return $this->renderView("/template/feed/faculty_class_feed.phtml");
-    }//end function addFeed
-    
-    /*
-    public funtion editFeedPublish()
-    {
-        
     }
-    */
     
+    /*   editFeed
+     *   @return string => update feed
+     */
     public function editFeed()
     {
-        $classFeedRepository = new ClassFeedRepository();
-
         if (!isset($_SESSION['login']))
         {
             header("Location: ?page=user_connection");
         }
-        
+
         if (Service::checkIfUserIsConnected())
         {
+            $classFeedRepository = new ClassFeedRepository();
             if(
                 isset($_POST["feed-id"])
                 && $feed = $classFeedRepository->findOne(intval($_POST["feed-id"]))
@@ -173,19 +251,18 @@ class ClassFeedController extends AbstractController
                         {
                             $feed->setImageDescription("");
                         }
-        
-        
-                    if(!empty($_POST["edit-publish-date"]))
+
+                    if($_POST["edit-publish-date"])
                     {
                         $publishDate = new DateTime($_POST["publish-date"]);
                         $feed->setPublishDate($publishDate->format("Y-m-d"));
-                    } 
+                    } else {
+                        $feed->setPublishDate(null);
+                    }
                     
                     if($_FILES["edit-upload-image"]["size"] > 0)
                     {
-                        $deleteImage = $feed->getFilePathImage();
-                        unlink($deleteImage);
-                        //unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
+                        unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
                         $newImage = Service::moveFile($_FILES["edit-upload-image"]);
                         $feed->setFilePathImage($newImage);
                     }
@@ -198,32 +275,32 @@ class ClassFeedController extends AbstractController
                     $classFeedRepository = new ClassFeedRepository();
                     $classFeedRepository->update($feed);
                     
-                    
-                    //$feed = $classFeedRepository->findLast();
-                    
+                    //array of numbers in string form
                     $newStudentList = $_POST["edit-feed-list-students"];
-                    $oldStudentList = $feed->getLinkedStudents();
+                    //arra of objects
+                    $oldStudentListObj = $feed->getLinkedStudents();
+                    if(is_null($oldStudentListObj)){ $oldStudentListObj=[]; };
+                    //array of numbers in int form
+                    $oldStudentList = [];
                     
-                    var_dump($oldStudentList);
-                    
-                    if(is_null($oldStudentList)){ $oldStudentList=[]; };
-                    
-                    var_dump($oldStudentList);
+                    foreach($oldStudentListObj as $key){
+                        array_push($oldStudentList, $key->getId());
+                    };
                     
                     
-                    foreach($newStudentList as $key=>$studentId)
+                    foreach($newStudentList as $key)
                     {   
-                        if(!in_array(intval($studentId), $oldStudentList))
+                        if(!in_array(intval($key), $oldStudentList ))
                         {
-                            $classFeedRepository->insertStudentFeed($feed->getId(), intval($studentId));
+                            $classFeedRepository->insertStudentFeed($feed->getId(), intval($key));
                         }
                     }
                     
-                    foreach($oldStudentList as $key=>$studentId)
+                    foreach($oldStudentList as $key)
                     {
-                        if(!in_array($studentId, $newStudentList))
+                        if(!in_array($key, $newStudentList))
                         {
-                            $classFeedRepository->deleteStudentFeed($feed->getId(), intval($studentId));
+                            $classFeedRepository->deleteStudentFeed($feed->getId(), $key);
                         }
                     }
                     
@@ -233,12 +310,18 @@ class ClassFeedController extends AbstractController
             }
             return $this->renderView("/template/feed/faculty_class_feed.phtml");
         }
+    }
 
-    }// end function editFeed
-
-
+    /*   deleteFeed
+     *   @return string => template
+     */
     public function deleteFeed()
     {
+        if (!isset($_SESSION['login']))
+        {
+            header("Location: ?page=user_connection");
+        }
+        
         $classFeedRepository = new ClassFeedRepository();
         $feed = $classFeedRepository->findOne(intval($_GET["feed-id"]));
         if (
@@ -246,13 +329,9 @@ class ClassFeedController extends AbstractController
             && isset($_GET["feed-id"])
             && $feed
         ) {
-            if(!empty($feed->getFilePathImage())){
-                //supprime l'image lié à l'article 
-                //$deleteImage = $feed->getFilePathImage();
-                //unlink($deleteImage);
+            if($feed->getFilePathImage()!=null){
                 unlink(dirname(__DIR__, 3) . $feed->getFilePathImage());
             }
-            
             //delete comments
             $commentsRepository = new CommentRepository();
             $commentsRepository->deleteComments($feed->getId());
@@ -261,18 +340,17 @@ class ClassFeedController extends AbstractController
             $studentRepository = new StudentRepository();
             $studentRepository->deleteStudents($feed->getId());
             
-            // supprime le feed
+            // delete feed
             $classFeedRepository->delete($feed);
-            // Redirect vers la page listant les articles 
+            // Redirect to feed listing 
              header("Location: ?page=faculty_class_feed&class-id=".$feed->getClassroomId());
         }
-        
-          return $this->renderView("/template/feed/faculty_class_feed.phtml");
-           
-    }//end function deleteFeed
+        return $this->renderView("/template/feed/faculty_class_feed.phtml");
+    }
     
-
-// simply retreive info, no page load
+    /*   xmlRetrieve
+     *   @return database information with no page reload
+     */
     public function xmlRetrieve()
     {
         $classFeedRepository = new ClassFeedRepository();

@@ -1,49 +1,81 @@
-<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']!="parent")): ?>
+<h1>Feed de class Professionnel</h1>
+
+<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']!="parent") && ($_SESSION["user_permission"])): ?>
 
   <section class="add-feed"> 
-    <button class="btn" id="add-feed-btn">Ajouter</button>
+    <button class="btn" id="add-feed-btn">Ajouter un feed</button>
+      <!-- add feed form hidden till activated -->
       <div class="add-feed-template">
           <?php require dirname(__DIR__) . "/feed/template_part/__feed_add.phtml"; ?>
       </div>
   </section>
 
-
-  <section class="class-feed">
-    
-    <!-- loop through all the posts available -->
-    <?php foreach($allRelatedFeeds as $key => $feed): ?>
-          
-      <div class="feed-post">
-        <img class="class-feed-image" src="<?= $feed->getFilePathImage() ?>" alt="<?= $feed->getImageDescription() ?>"></img>
-        <p class="post-date"> <?= $feed->getPublishDate() ?></p>
-        <p> <?= $feed->getContent() ?></p>
-        
-          
-        <div class="feed-post-btn">
-          <button class="btn-small btn-edit" data-feed_id="<?= $feed->getId() ?>" > Modifier </button>
-          <button class="btn-small btn-delete" data-feed_id="<?= $feed->getId() ?>" > Supprimer </button>
-        </div>
-              
-        <!-- loop through all the comments available -->
-        <?php $allRelatedComments = $feed->getCommentsOfFeed();
-          // recupère tous les comments qui n'ont pas de commentaire parent
-
-            if( $allRelatedComments){
-                require dirname(__DIR__) . "/feed/template_part/__feed_comment.phtml"; 
-            }
-        ?>
-        
-      </div>
-      
-    <?php endforeach; ?>
-    
-  </section>
-
-
-    
 <?php endif; ?>
 
 
+<div class="feed-section">
+  <section class="class-feed">
+    
+    <?php if(empty($allRelatedFeeds)): ?>
+      <div class="feed-post">
+        <img class="class-feed-image" alt="photo of an empty montessori classroom" 
+          src="/Montessori/public/assets/images/classroom_student/empty_classroom_sunlight.jpg">
+        <p>Cet espace contiendra les publications de la classe.</p>
+        <p>Il vivra avec les images prises pendant l'année scolaire.</p>
+      </div>
+    <!-- loop through all the posts available -->
+    <?php else: ?>
+    
+      <?php foreach($allRelatedFeeds as $key => $feed): ?>
+          
+        <div class="feed-post">
+          <?php if($feed->getFilePathImage()): ?>
+            <img class="class-feed-image" src="<?= $feed->getFilePathImage() ?>" 
+              alt="<?= $feed->getImageDescription() ?>">
+          <?php endif; ?>
+          
+          <div class="feed-post-wrapper">
+            <?php foreach($feed->getStudentsLinked() as $key): ?>
+              <div class="student-in-feed"><p><?= $key->getFirstname() ?></p></div>
+            <?php endforeach; ?>
+          </div>
+          
+          <div class="feed-post-content">
+            <?php if($feed->getPublishDate()): ?>
+              <p class="post-date"> <?= $feed->getPublishDate() ?></p>
+            <?php else : ?>
+              <p class="post-date text-attention">Ce feed n'a pas été publié.</p>
+            <?php endif; ?>
+            <p> <?= $feed->getContent() ?></p>
+          </div>
+
+          <?php if(isset($_SESSION['login']) 
+                    && ($_SESSION['user_role']!="parent") 
+                    && ($_SESSION["user_permission"])): ?>
+            <div class="feed-post-btn">
+              <button class="btn-small btn-edit" 
+                data-feed_id="<?= $feed->getId() ?>">Modifier</button>
+              <button class="btn-small btn-delete" 
+                data-feed_id="<?= $feed->getId() ?>">Supprimer</button>
+            </div>
+          <?php endif; ?>              
+
+          <!-- loop through all the comments available -->
+          <?php $allRelatedComments = $feed->getCommentsOfFeed();
+            // recupère tous les comments qui n'ont pas de commentaire parent
+              if( $allRelatedComments){
+                  require dirname(__DIR__) . "/feed/template_part/__feed_comment.phtml"; 
+              }
+          ?>
+          
+        </div>
+      
+      <?php endforeach; ?>
+
+    <?php endif; ?>
+  
+  </section>
+</div>
 
 <?php include_once dirname(__DIR__) . "/feed/template_part/__feed_edit.phtml"; ?>
 <?php include_once dirname(__DIR__) . "/feed/template_part/__feed_delete.phtml"; ?>

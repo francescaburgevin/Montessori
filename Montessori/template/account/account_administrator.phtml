@@ -1,0 +1,47 @@
+<section class="account-banner"></section>
+
+<section class="admin-tools">
+  <div class="add-new-user">
+    <button class="btn" id="add-user-btn">Ajouter un utilisateur</button>
+    <button class="hide btn-attention" id="add-user-cancel">Annuler</button>
+    <div class="display-add-user bg-dark hide">
+      <?php require dirname(__DIR__) . "/user/template_part/__user_add.phtml"; ?>
+    </div>
+  </div>
+  
+  <div class="future-account-options">
+    <p>Ces options seront activées prochainement.</p>
+    <div class="add-new-event"> <!-- class name will change with new functions -->
+      <button title="function inactive" class="btn-minimal" id="add-event-btn">Evénement (ajouter, modifier, supprimer) </button>
+      <!-- in the next version, the button will open up a new section 
+           where the admin can add, edit, delete or simply unpublish an item -->
+    </div>
+    
+    <div class="add-new-news"> <!-- class name will change with new functions -->
+      <button title="function inactive" class="btn-minimal" id="add-news-btn">Article (ajouter, modifier, supprimer) </button>
+      <!-- in the next version, the button will open up a new section 
+         where the admin can add, edit, delete or simply unpublish an item -->
+    </div>
+    
+    <div class="add-new-carousel"> <!-- class name will change with new functions -->
+      <button title="function inactive" class="btn-minimal" id="add-carousel-btn">Carousel (ajouter, modifier, supprimer) </button>
+      <!-- in the next version, the button will open up a new section 
+         where the admin can add, edit, delete or simply unpublish an item -->
+    </div>
+  </div>
+  
+</section>
+
+<section class="account-class-list">
+  
+  <?php foreach($classes as $key => $class): ?>
+  
+    <a title="Lien vers le feed" href="index.php?page=faculty_class_feed&class-id=<?= $class->getId() ?>">
+      <img title="Fruit de la classe" class="account-class-img" src="<?= $class->getFilePathImage() ?>" alt="class avatar"></img>
+      <h3> <?= utf8_encode(ucfirst($class->getName())) ?></h3>
+      <p> <?= $class->getSchoolYear() ?></p>
+    </a>
+
+  <?php endforeach; ?>
+  
+</section>

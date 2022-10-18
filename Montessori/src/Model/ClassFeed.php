@@ -46,15 +46,22 @@ class ClassFeed {
      */
      private ?Comment $comment;
     
-    private ?Student $linked_students;
+    /**
+     * @var ?Student $linked_students
+     */
+     private ?Student $linked_students;
+    
+    /**
+     * @var ?Array $students_linked
+     */
+      private ?Array $students_linked;
     
     
     
     /**
      * Constructeur $User
      */
-    public function __construct(){
-    }
+    public function __construct(){}
 
     /**
      * Get $id
@@ -99,7 +106,6 @@ class ClassFeed {
     public function setEditDate(string $edit_date): void
     {
         $this->edit_date = $edit_date;
-
     }
 
 
@@ -133,7 +139,6 @@ class ClassFeed {
             {
                 $this->publish_date = $publish_date;
             }
-        
     }
     
     
@@ -142,7 +147,7 @@ class ClassFeed {
      *
      * @return  string
      */
-    public function getFilePathImage(): string
+    public function getFilePathImage(): ?string
     {
         return $this->file_path_image;
     }
@@ -154,7 +159,7 @@ class ClassFeed {
      *
      * @return  self
      */
-    public function setFilePathImage(string $file_path_image): void
+    public function setFilePathImage(?string $file_path_image): void
     {
         $this->file_path_image = $file_path_image;
 
@@ -164,9 +169,9 @@ class ClassFeed {
      /**
      * Get $image_description
      *
-     * @return  string
+     * @return  ?string
      */
-    public function getImageDescription(): string
+    public function getImageDescription(): ?string
     {
         return $this->image_description;
     }
@@ -174,11 +179,11 @@ class ClassFeed {
     /**
      * Set $image_description
      *
-     * @param  string  $image_description  
+     * @param  ?string  $image_description  
      *
      * @return  self
      */
-    public function setImageDescription(string $image_description): void
+    public function setImageDescription(?string $image_description): void
     {
         $this->image_description = $image_description;
 
@@ -203,9 +208,10 @@ class ClassFeed {
      * @return  self
      */
     public function setContent(string $content): void
-   {
+    {
        $this->content = $content;
-   }
+    }
+   
    
   /**
      * Get $fk_classroom_id
@@ -225,23 +231,23 @@ class ClassFeed {
      * @return  self
      */
     public function setClassroomId(int $fk_classroom_id): void
-   {
+    {
        $this->fk_classroom_id = $fk_classroom_id;
-   }
+    }
    
    
-       /**
+    /**
      * Get $relatedComments
      *
      * @return  Comment
      */
     public function getCommentsOfFeed()
     {
-        //stock resultat de repository
         $commentRepository= new CommentRepository();
         $relatedComments = $commentRepository->getCommentsOfFeed($this->id);
         return $relatedComments;
     }
+   
    
    /**
     * Get $comment
@@ -267,22 +273,33 @@ class ClassFeed {
 
 
    /**
-    * Set $linked_students
+    * Get $students_linked
     *
-    * @return  
+    * @return  array
     */
     public function getLinkedStudents()
     {
         $studentRepository= new StudentRepository();
         $linked_students = $studentRepository->getStudentsInFeed($this->id);
-        
-        $students_linked = [];
-        
+        $this->students_linked = [];
+
         foreach($linked_students as $key => $student)
         {
-            array_push($students_linked, $student->getId());
+            array_push($this->students_linked, $student);
         }
-        return $students_linked;
+        
+        return $this->students_linked;
+    }
+    
+    
+   /**
+    * Get $students_linked
+    *
+    * @return  array
+    */    
+    public function getStudentsLinked()
+    {
+        return $this->students_linked;
     }
  
  
@@ -292,13 +309,11 @@ class ClassFeed {
     public function jsonSerialize()
     {
         $objectArray = [];
-        
         foreach($this as $key => $value) {
             $objectArray[$key] = $value;
-            
         }
     
-    array_push($objectArray, $this->getLinkedStudents());
+        array_push($objectArray, $this->getLinkedStudents());
         
         return json_encode($objectArray);
     }   

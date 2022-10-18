@@ -39,14 +39,14 @@ class User {
     private string $telephone1;
     
     /**
-     * @var bool $write_delete_able
+     * @var ?int $write_delete_able
      */
-    private ?bool $write_delete_able;
+    private ?int $write_delete_able;
     
     /**
-     * @var bool $account_active
+     * @var ?int $account_active
      */
-    private ?bool $account_active;
+    private ?int $account_active;
 
     /**
      * @var int $fk_role_id
@@ -62,8 +62,8 @@ class User {
     /**
      * Constructeur $User
      */
-    public function __construct(){
-    }
+    public function __construct(){}
+
 
     /**
      * Get $id
@@ -87,6 +87,7 @@ class User {
         $this->id = $id;
     }
 
+
     /**
      * Get $firstname
      *
@@ -107,8 +108,8 @@ class User {
     public function setFirstname(string $firstname): void
     {
         $this->firstname = $firstname;
-
     }
+    
     
     /**
      * Get $lastname
@@ -130,7 +131,6 @@ class User {
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
-
     }
 
 
@@ -154,8 +154,8 @@ class User {
     public function setUsername(string $username): void
     {
         $this->username = $username;
-
     }
+
 
     /**
      * Get $password
@@ -179,6 +179,7 @@ class User {
         $this->password = $password;
     }
     
+    
     /**
      * Get $email1
      *
@@ -189,7 +190,7 @@ class User {
         return $this->email1;
     }
     
-     /**
+    /**
      * Set $email1
      *
      * @param  string  $email1
@@ -212,7 +213,7 @@ class User {
         return $this->telephone1;
     }
     
-     /**
+    /**
      * Set $telephone1
      *
      * @param  string  $telephone1
@@ -228,21 +229,21 @@ class User {
    /**
      * Get $write_delete_able
      *
-     * @return  bool
+     * @return  ?int
      */
-    public function getWriteDeleteAble(): ?bool
+    public function getWriteDeleteAble(): ?int
     {
         return $this->write_delete_able;
     }
     
-     /**
+    /**
      * Set $write_delete_able
      *
-     * @param  bool  $write_delete_able
+     * @param  ?int  $write_delete_able
      *
      * @return  self
      */
-    public function setWriteDeleteAble(bool $write_delete_able): void
+    public function setWriteDeleteAble(?int $write_delete_able): void
     {
         $this->write_delete_able = $write_delete_able;
     }
@@ -251,9 +252,9 @@ class User {
     /**
      * Get $account_active
      *
-     * @return  bool
+     * @return  ?int
      */
-    public function getAccountActive(): ?bool 
+    public function getAccountActive(): ?int
     {
         return $this->account_active;
     }
@@ -261,11 +262,11 @@ class User {
      /**
      * Set $account_active
      *
-     * @param  bool  $account_active
+     * @param  ?int  $account_active
      *
      * @return  self
      */
-    public function setAccountActive(bool $account_active): void
+    public function setAccountActive(?int $account_active): void
     {
         $this->account_active = $account_active;
     }
@@ -274,18 +275,30 @@ class User {
     /**
      * Get $fk_role_id
      *
-     * @return  string
+     * @return  int
      */
     public function getRoleId(): int
     {
         return $this->fk_role_id;
+    }
+    
+     /**
+     * Set $fk_role_id
+     *
+     * @param  int  $fk_role_id
+     *
+     * @return  self
+     */
+    public function setRoleId(int $fk_role_id): void
+    {
+        $this->fk_role_id = $fk_role_id;
     }
    
    
     /**
     * Get $role
     *
-    * @return  string
+    * @return  Role
     */
     public function getRole(): Role
     {
@@ -304,4 +317,19 @@ class User {
        $this->role = $role;
     }
    
+   
+    /*
+     * Pour convertir un objet en Json 
+     */
+    public function jsonSerialize()
+    {
+        $objectArray = [];
+        
+        foreach($this as $key => $value) {
+            $objectArray[$key] = $value;
+            
+        }
+        return json_encode($objectArray);
+    }   
+    
 }

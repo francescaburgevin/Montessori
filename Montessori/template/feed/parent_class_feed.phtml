@@ -1,0 +1,80 @@
+<?php if(isset($_SESSION['login']) && ($_SESSION['user_role']=="parent")): ?>
+
+  <div class="feed-section">
+    
+    <section class="class-feed">
+      
+      <?php if(empty($allRelatedFeeds)): ?>
+        <div class="feed-post">
+          <img class="class-feed-image" alt="photo of an empty montessori classroom" 
+            src="/Montessori/public/assets/images/classroom_student/empty_classroom_sunlight.jpg">
+          <p>Cet espace contiendra les publications de la classe.</p>
+          <p>Il vivra avec les images prises pendant l'année scolaire.</p>
+        </div>
+        
+      <!-- loop through all the posts available -->
+      <?php else: ?>
+      
+        <?php foreach($allRelatedFeeds as $key => $feed): ?>
+
+          <?php if($feed->getPublishDate()!==null): ?>
+                    
+          <div class="feed-post">
+          <?php if($feed->getFilePathImage()): ?>
+            <img class="class-feed-image" src="<?= $feed->getFilePathImage() ?>" 
+              alt="<?= $feed->getImageDescription() ?>">
+          <?php endif; ?>
+          
+          
+          <div class="feed-post-wrapper">
+          <?php foreach($feed->getStudentsLinked() as $key): ?>
+            <div class="student-in-feed"><p><?= utf8_encode($key->getFirstname()) ?></p></div>
+          <?php endforeach; ?>
+          </div>
+  
+          <p class="post-date"> <?= $feed->getPublishDate() ?></p>
+          
+          <p class="text-left"> <?= $feed->getContent() ?></p>
+                
+          <div class="parent-comment-add">
+            <button class="btn-minimal add-first-comment-btn" data-feed_id="<?= $feed->getId() ?>" >Ajouter un commentaire</button>  
+              <div class="add-comment" data-feed_id="<?= $feed->getId() ?>" >
+                
+                <form action="?page=comment_add" method="POST" enctype="multipart/form-data"
+                  class="hide" id="<?= $feed->getId() ?>">
+                <input type="hidden" name="feed-id" value="<?=$feed->getId() ?>" >
+                <input type="hidden" name="user-id" value="<?=$_SESSION['user_id'] ?>">
+                <input type="hidden" name="student-id" value="<?=$_GET["student-id"] ?>">
+                <input type="hidden" name="class-id" value="<?=$_GET["class-id"] ?>">
+                  
+                  <input type="text" name="add-comment-content" maxlength="150" placeholder="Ecrire votre commentaire ici">
+                  <input class="btn-minimal" type="submit" value="Sauvegarder"/>
+                </form>
+              
+              
+              </div>
+          </div>
+              
+          <!-- loop through all the comments available -->
+          <?php $allRelatedComments = $feed->getCommentsOfFeed();
+            // recupère tous les comments qui n'ont pas de commentaire parent
+        
+              if( $allRelatedComments){
+                  require dirname(__DIR__) . "/feed/template_part/__feed_comment.phtml"; 
+              }
+          ?>
+          
+        </div>
+        
+          <?php endif; ?>
+        
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </section>
+  
+  </div>    
+
+<?php endif; ?>
+
+<?php include_once dirname(__DIR__) . "/feed/template_part/__feed_edit.phtml"; ?>
+<?php include_once dirname(__DIR__) . "/feed/template_part/__feed_delete.phtml"; ?>
